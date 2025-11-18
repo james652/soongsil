@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_brainwash_20251109_205457",
+  "applied_to_next_step": "단계 3/4: 적용",
+  "base_query_before": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT",
+  "merged_query_after": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT BWT EWC brainwash last-task accuracy catastrophic forgetting Label Flipping BWT drop task 8 iter 100 loss 96360.38 loss_bn 8.47 Retrieve works on EWC-based continual learning with brainwash/poisoning detection using BWT and last-task accuracy; look for log-signature patterns like initial per-task loss spikes, convergence, and large regularization (loss_bn) components.",
+  "from_step": "단계 2/4: 수행",
+  "topk_used": {
+    "terms": [
+      "BWT",
+      "EWC",
+      "brainwash"
+    ],
+    "phrases": [
+      "last-task accuracy",
+      "catastrophic forgetting",
+      "Label Flipping",
+      "BWT drop",
+      "task 8 iter 100",
+      "loss 96360.38",
+      "loss_bn 8.47"
+    ],
+    "query_hint": "Retrieve works on EWC-based continual learning with brainwash/poisoning detection using BWT and last-task accuracy; look for log-signature patterns like initial per-task loss spikes, convergence, and large regularization (loss_bn) components."
+  },
+  "timestamp": "2025-11-10 04:32:09"
+}

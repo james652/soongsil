@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_brainwash_20251109_205457",
+  "applied_to_next_step": "단계 2/4: 수행",
+  "base_query_before": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT",
+  "merged_query_after": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT BWT EWC Brainwash Fisher diagonal Accumulative Attack Label Flipping last-task accuracy BWT -5.11 pp Fisher diagonal 50% Fisher diagonal 84% continual learning EWC BWT fisher diagonal attack detection brainwash accumulative attack label flipping last-task accuracy",
+  "from_step": "단계 1/4: 초기 모델 학습 (EWC)",
+  "topk_used": {
+    "terms": [
+      "BWT",
+      "EWC",
+      "Brainwash"
+    ],
+    "phrases": [
+      "Fisher diagonal",
+      "Accumulative Attack",
+      "Label Flipping",
+      "last-task accuracy",
+      "BWT -5.11 pp",
+      "Fisher diagonal 50%",
+      "Fisher diagonal 84%"
+    ],
+    "query_hint": "continual learning EWC BWT fisher diagonal attack detection brainwash accumulative attack label flipping last-task accuracy"
+  },
+  "timestamp": "2025-11-10 00:21:38"
+}

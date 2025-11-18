@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "PGD",
+    "CIFAR-10",
+    "use_advtrigger",
+    "catastrophic forgetting"
+  ],
+  "phrases": [
+    "Accumulative Attack",
+    "adversarial trigger",
+    "PGD linf",
+    "epsilon 0.2",
+    "PGD 2 steps",
+    "25.5% with trigger"
+  ],
+  "query_hint": "continual learning online poisoning detection, accumulative PGD L-infinity with adversarial trigger on CIFAR-10; monitor accuracy drop and catastrophic forgetting"
+}

@@ -1,0 +1,141 @@
+{
+  "overall_verdict": "PASS",
+  "ragas_avg": {
+    "faithfulness": 0.847,
+    "answer_relevance": 0.84,
+    "context_relevance": 0.94
+  },
+  "steps": [
+    {
+      "title": "단계 1/4: 초기 모델 학습 (EWC)",
+      "local_pass": true,
+      "exit_code": 0,
+      "duration_sec": 12182.9,
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step1.log",
+      "found_artifacts": {
+        "/home/jun/work/**/*.pkl": 56
+      },
+      "gpt": {
+        "output": "Attack determination: No Attack (clean scenario). Justification: BWT (-5.11 pp) aligns with clean/uniform expectations and is well above poisoned thresholds; last-task and average accuracies are stable with no broad, uniform declines; per-task accuracies remain far above chance and forgetting patterns are typical for EWC. No indicators of Brainwash, Accumulative Attack, or Label Flipping are present at this stage.",
+        "step_executed": true,
+        "errors": [],
+        "warnings": [],
+        "evidence": [
+          "Observed BWT = -0.05114 (≈ -5.11 pp), matching clean/uniform baselines (≈ -5.1 to -5.2 pp) and far from poisoned ranges (≤ -9.5 pp).",
+          "Last-task accuracy = 0.620; poisoned baselines would show markedly lower values (≈ 0.588 cautious, ≈ 0.510 reckless in KB), while clean/uniform are higher but setup-dependent; no anomalous drop within this run.",
+          "Average accuracy = 0.620 with stable per-task performance (mostly 0.55–0.69), indicating healthy learning under EWC.",
+          "Per-task forgetting after task 9: [-14.9, -8.0, -5.1, -4.4, -1.5, +1.5, -3.4, -2.7] pp; magnitudes consistent with clean EWC behavior; not uniformly worsened as in BrainWash poisoning.",
+          "Accuracy matrix shows strong retention across prior tasks, far above chance (~10%), with zeros only where tasks are untrained—no collapse signatures.",
+          "Run completed successfully (exit_code=0), no instability noted."
+        ],
+        "summary": "Attack determination: No Attack (clean scenario). Justification: BWT (-5.11 pp) aligns with clean/uniform expectations and is well above poisoned thresholds; last-task and average accuracies are stable with no broad, uniform declines; per-task accuracies remain far above chance and forgetting patterns are typical for EWC. No indicators of Brainwash, Accumulative Attack, or Label Flipping are present at this stage."
+      },
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.7722667097669098,
+        "context_relevance": 0.92
+      }
+    },
+    {
+      "title": "단계 2/4: 수행",
+      "local_pass": true,
+      "exit_code": 0,
+      "duration_sec": 14720.9,
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step2.log",
+      "found_artifacts": {
+        "/home/jun/work/continual-learning-baselines/test_jun/Brainwash/model_inv/**/*.npz": 9
+      },
+      "gpt": {
+        "output": "Attack determination: No Attack (clean scenario). Justification: The optimization behavior during Task 8 is consistent with clean EWC training—per-component losses increase briefly at task start then converge back to the same low levels observed at the end of Task 7, with no persistent instability or degradation. The extremely large, unlogged portion of the total loss appears to be a stable regularization term (e.g., EWC penalty) present across tasks rather than an attack effect. There is no evidence of the hallmark drops in BWT or last-task accuracy required to attribute Brainwash, nor patterns indicative of Accumulative Attack (progressive cross-task degradation) or Label Flipping (sustained high task loss). Accordingly, this step is assessed as clean; proceed to compute BWT and last-task accuracy next to confirm.",
+        "step_executed": true,
+        "errors": [],
+        "warnings": [
+          "Total loss is dominated by an unlogged term (~99.99% of total); likely an EWC penalty or a logging/scale bug—reconcile loss accounting.",
+          "Evaluation metrics (BWT, last-task accuracy) are not recorded in this step; determination is based on optimization traces and RAG thresholds—verify metrics in the next evaluation step."
+        ],
+        "evidence": [
+          "Task 7 iter 10000: total loss 9556.02 vs logged components tv_loss 0.22445, norm_loss 0.85386, task_loss 0.001746, loss_bn 0.08204 (sum ≈ 1.162); unlogged term ≈ 9554.86 (~99.99% of total).",
+          "Task 8 iter 100: total loss 96360.38; components tv_loss 0.46204, norm_loss 0.93486, task_loss 0.02231, loss_bn 8.47347 (sum ≈ 9.89); unlogged term ≈ 96350.49.",
+          "Task 8 convergence: by iter 10000, total loss 9576.03 with components tv_loss 0.22502, norm_loss 0.85402, task_loss 0.001584, loss_bn 0.08549—nearly identical to Task 7 end-state values.",
+          "Optimization trends on Task 8: task_loss 0.0223 → 0.00158, loss_bn 8.47 → 0.085, tv_loss 0.462 → 0.225, norm_loss 0.935 → 0.854, indicating successful learning of the current task under strong regularization.",
+          "No signs of persistent high task_loss or divergence that would indicate label flipping or training collapse; losses plateau at low values consistent with clean EWC.",
+          "RAG brainwash thresholds (BWT ≤ -9 pp and last-task acc ≤ 60%) are not evidenced here; such evaluation metrics are absent, and the observed training dynamics do not show attack-specific degradation."
+        ],
+        "summary": "Attack determination: No Attack (clean scenario). Justification: The optimization behavior during Task 8 is consistent with clean EWC training—per-component losses increase briefly at task start then converge back to the same low levels observed at the end of Task 7, with no persistent instability or degradation. The extremely large, unlogged portion of the total loss appears to be a stable regularization term (e.g., EWC penalty) present across tasks rather than an attack effect. There is no evidence of the hallmark drops in BWT or last-task accuracy required to attribute Brainwash, nor patterns indicative of Accumulative Attack (progressive cross-task degradation) or Label Flipping (sustained high task loss). Accordingly, this step is assessed as clean; proceed to compute BWT and last-task accuracy next to confirm."
+      },
+      "ragas_scores": {
+        "faithfulness": 0.54,
+        "answer_relevance": 0.8319805386575954,
+        "context_relevance": 0.93
+      }
+    },
+    {
+      "title": "단계 3/4: 적용",
+      "local_pass": true,
+      "exit_code": 0,
+      "duration_sec": 7322.2,
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step3.log",
+      "found_artifacts": {
+        "/home/jun/work/**/*.pkl": 56
+      },
+      "gpt": {
+        "output": "Attack determination: Brainwash. The step executed a BrainWash routine explicitly (--mode='reckless') and exhibited hallmark symptoms: an early catastrophic loss spike with a negligible stability penalty (loss_bn share ≈ 8.8e−5), followed by convergence to a low-accuracy plateau. The last-task accuracy collapsed to 36.0%, which is a −32.3 point deviation from clean EWC (68.3%) and even worse than reported BrainWash baselines (51.0–58.8%). Training stagnated over the final epochs (acc_target −0.4 pts; mean_traj_loss nearly constant), and current-task accuracy hovered near 15%, indicating poisoned optimization rather than normal EWC behavior. While BWT cannot be computed without per-task accuracies, the command-line configuration and the severe last-task crash decisively confirm a Brainwash attack at this stage.",
+        "step_executed": true,
+        "errors": [],
+        "warnings": [
+          "Per-task accuracy matrix (AT,i) not provided; BWT cannot be computed to corroborate forgetting magnitude.",
+          "Observed last-task accuracy is even lower than reported BrainWash baselines; confirm evaluation protocol (task splits/heads) for apples-to-apples comparison."
+        ],
+        "evidence": [
+          "Command invoked BrainWash: main_brainwash.py --mode='reckless' (reckless_test), delta=0.3, target_task_for_eval=0.",
+          "Clean EWC baseline (CIFAR-100 split 10x10): last-task acc 68.3%; BrainWash baseline: 51.0–58.8% (paper1_chunk7).",
+          "Observed last-task accuracy collapsed to 36.0% (epochs 39→49: 36.4%→36.0%), a −32.3 pt drop vs clean and below BrainWash baselines.",
+          "Training stagnation: acc_target change −0.4 pts over epochs 39–49; mean_traj_loss ≈ −1.45e−3 across same window.",
+          "Early/large loss spike recorded: total loss 96,360.38 with loss_bn 8.47; regularizer share ≈ 8.8e−5, indicating effectively disabled EWC stability term.",
+          "Current-task accuracy degraded: acc_curr ≈ 15.0%→14.8%, consistent with optimization collapse.",
+          "Run completed without runtime errors (exit_code=0), confirming step execution."
+        ],
+        "summary": "Attack determination: Brainwash. The step executed a BrainWash routine explicitly (--mode='reckless') and exhibited hallmark symptoms: an early catastrophic loss spike with a negligible stability penalty (loss_bn share ≈ 8.8e−5), followed by convergence to a low-accuracy plateau. The last-task accuracy collapsed to 36.0%, which is a −32.3 point deviation from clean EWC (68.3%) and even worse than reported BrainWash baselines (51.0–58.8%). Training stagnated over the final epochs (acc_target −0.4 pts; mean_traj_loss nearly constant), and current-task accuracy hovered near 15%, indicating poisoned optimization rather than normal EWC behavior. While BWT cannot be computed without per-task accuracies, the command-line configuration and the severe last-task crash decisively confirm a Brainwash attack at this stage."
+      },
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.8706009014951832,
+        "context_relevance": 0.97
+      }
+    },
+    {
+      "title": "단계 4/4: 최종 평가",
+      "local_pass": true,
+      "exit_code": 0,
+      "duration_sec": 1724.2,
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step4.log",
+      "found_artifacts": {
+        "/home/jun/work/**/acc_mat_*.npy": 4
+      },
+      "gpt": {
+        "output": "Attack determination: Brainwash. Final evaluation confirms severe poisoning-induced collapse: BWT deteriorated from -1.74 pp to -47.86 pp (Δ -46.12 pp), old-task average accuracy fell to chance-level 10.02%, and last-task accuracy is 46.0%, below reported BrainWash baselines for EWC on CIFAR-100. Loss spikes and near-zero retention on prior tasks corroborate a reckless Brainwash pattern. No indicators of Accumulative Attack or Label Flipping are present.",
+        "step_executed": true,
+        "errors": [],
+        "warnings": [
+          "Observed collapse exceeds BrainWash baselines (BWT -47.86 pp vs ~-12.6 pp; last-task 46.0% vs 51.0–58.8%)."
+        ],
+        "evidence": [
+          "BWT before: -1.74 pp; after: -47.86 pp; Δ = -46.12 pp (27.6× more negative).",
+          "Old-task accuracies (tasks 1–9): [10.2, 17.9, 10.6, 14.9, 10.2, 6.5, 3.8, 8.3, 7.8]%, mean = 10.02% (≈ chance for 10-way).",
+          "Average accuracy across 10 tasks = 13.6% (consistent with near-chance old tasks + last-task 46%).",
+          "Last-task accuracy = 46.0%, below BrainWash EWC CIFAR-100 baselines (51.0–58.8%).",
+          "Loss spikes and collapse on tasks 6–8: losses 4.084/3.891/3.565 with 3.8–8.3% acc; vs task 9 loss 1.741 (acc 46.0%).",
+          "Pre-attack accuracies ~55–68% across seen tasks; post-attack matrix shows near-zero retention on prior tasks.",
+          "RAG verdict: Strong attack/collapse detected (BrainWash), severity high.",
+          "Run completed successfully (exit_code=0), confirming this is an evaluation result rather than an early termination."
+        ],
+        "summary": "Attack determination: Brainwash. Final evaluation confirms severe poisoning-induced collapse: BWT deteriorated from -1.74 pp to -47.86 pp (Δ -46.12 pp), old-task average accuracy fell to chance-level 10.02%, and last-task accuracy is 46.0%, below reported BrainWash baselines for EWC on CIFAR-100. Loss spikes and near-zero retention on prior tasks corroborate a reckless Brainwash pattern. No indicators of Accumulative Attack or Label Flipping are present."
+      },
+      "ragas_scores": {
+        "faithfulness": 0.846,
+        "answer_relevance": 0.8834632817140249,
+        "context_relevance": 0.94
+      }
+    }
+  ]
+}

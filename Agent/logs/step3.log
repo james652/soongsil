@@ -1,0 +1,76 @@
+--- RUN START: 단계 3/4: 적용 ---
+CMD: CUDA_VISIBLE_DEVICES=0 python /home/jun/work/soongsil/Brainwash/main_brainwash.py --extra_desc=reckless_test --pretrained_model_add=/home/jun/work/soongsil/Brainwash/ewc_lamb_500000.0__model_type_resnet_dataset_split_cifar100_class_num_10_bs_16_lr_0.01_n_epochs_20__model_name_ResNet_task_num_9__seed_0_emb_fact_1_im_sz_32__last_task_9____optim_name_sgd.pkl --mode='reckless' --target_task_for_eval=0 --delta=0.3 --seed=0 --eval_every=10 --distill_folder=/home/jun/work/soongsil/Brainwash/output --init_acc --noise_norm=inf --cont_learner_lr=0.001 --n_epochs=50 --save_every=100 
+
+Task order:  [array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]), array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29]), array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39]), array([40, 41, 42, 43, 44, 45, 46, 47, 48, 49]), array([50, 51, 52, 53, 54, 55, 56, 57, 58, 59]), array([60, 61, 62, 63, 64, 65, 66, 67, 68, 69]), array([70, 71, 72, 73, 74, 75, 76, 77, 78, 79]), array([80, 81, 82, 83, 84, 85, 86, 87, 88, 89]), array([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])]
+init acc task 0: 57.4
+init acc task 1: 57.9
+init acc task 2: 68.5
+init acc task 3: 59.3
+init acc task 4: 63.0
+init acc task 5: 64.60000000000001
+init acc task 6: 63.1
+init acc task 7: 61.9
+init acc task 8: 62.0
+CL method was ewc
+epoch 0 mean traj loss: -0.0011727509379852563 min_acc_target: 1000
+epoch 1 mean traj loss: -0.0011793634534114975 min_acc_target: 1000
+epoch 2 mean traj loss: -0.0011909988214028999 min_acc_target: 1000
+epoch 3 mean traj loss: -0.0011912202637176963 min_acc_target: 1000
+epoch 4 mean traj loss: -0.0012090865639038386 min_acc_target: 1000
+epoch 5 mean traj loss: -0.001212889884482138 min_acc_target: 1000
+epoch 6 mean traj loss: -0.0012283808988286184 min_acc_target: 1000
+epoch 7 mean traj loss: -0.0012334848928730931 min_acc_target: 1000
+epoch 8 mean traj loss: -0.0012444580584997308 min_acc_target: 1000
+Task order:  [array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]), array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29]), array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39]), array([40, 41, 42, 43, 44, 45, 46, 47, 48, 49]), array([50, 51, 52, 53, 54, 55, 56, 57, 58, 59]), array([60, 61, 62, 63, 64, 65, 66, 67, 68, 69]), array([70, 71, 72, 73, 74, 75, 76, 77, 78, 79]), array([80, 81, 82, 83, 84, 85, 86, 87, 88, 89]), array([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])]
+optim: sgd
+epoch 9 mean traj loss: -0.0012197718140669167 acc_curr: 21.8 acc_target: 39.7 min_acc_target: 39.7
+epoch 10 mean traj loss: -0.0012572271341923626 min_acc_target: 39.7
+epoch 11 mean traj loss: -0.001237053168006241 min_acc_target: 39.7
+epoch 12 mean traj loss: -0.0012389778450597078 min_acc_target: 39.7
+epoch 13 mean traj loss: -0.0012538842362118888 min_acc_target: 39.7
+epoch 14 mean traj loss: -0.001278344090678729 min_acc_target: 39.7
+epoch 15 mean traj loss: -0.001292423892300576 min_acc_target: 39.7
+epoch 16 mean traj loss: -0.0012787318992195655 min_acc_target: 39.7
+epoch 17 mean traj loss: -0.001299780621775426 min_acc_target: 39.7
+epoch 18 mean traj loss: -0.0013343622558750214 min_acc_target: 39.7
+Task order:  [array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]), array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29]), array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39]), array([40, 41, 42, 43, 44, 45, 46, 47, 48, 49]), array([50, 51, 52, 53, 54, 55, 56, 57, 58, 59]), array([60, 61, 62, 63, 64, 65, 66, 67, 68, 69]), array([70, 71, 72, 73, 74, 75, 76, 77, 78, 79]), array([80, 81, 82, 83, 84, 85, 86, 87, 88, 89]), array([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])]
+optim: sgd
+epoch 19 mean traj loss: -0.0013243086723377928 acc_curr: 18.6 acc_target: 37.7 min_acc_target: 37.7
+epoch 20 mean traj loss: -0.0013261948479339478 min_acc_target: 37.7
+epoch 21 mean traj loss: -0.0013025981141254308 min_acc_target: 37.7
+epoch 22 mean traj loss: -0.0013067105115624144 min_acc_target: 37.7
+epoch 23 mean traj loss: -0.001320502010639757 min_acc_target: 37.7
+epoch 24 mean traj loss: -0.0013469896977767349 min_acc_target: 37.7
+epoch 25 mean traj loss: -0.0013615410251077264 min_acc_target: 37.7
+epoch 26 mean traj loss: -0.0013473429193254561 min_acc_target: 37.7
+epoch 27 mean traj loss: -0.001368779598851688 min_acc_target: 37.7
+epoch 28 mean traj loss: -0.0014039871020941062 min_acc_target: 37.7
+Task order:  [array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]), array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29]), array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39]), array([40, 41, 42, 43, 44, 45, 46, 47, 48, 49]), array([50, 51, 52, 53, 54, 55, 56, 57, 58, 59]), array([60, 61, 62, 63, 64, 65, 66, 67, 68, 69]), array([70, 71, 72, 73, 74, 75, 76, 77, 78, 79]), array([80, 81, 82, 83, 84, 85, 86, 87, 88, 89]), array([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])]
+optim: sgd
+epoch 29 mean traj loss: -0.0013936002535047012 acc_curr: 16.2 acc_target: 36.199999999999996 min_acc_target: 36.199999999999996
+epoch 30 mean traj loss: -0.0013949738728115332 min_acc_target: 36.199999999999996
+epoch 31 mean traj loss: -0.00136926285631489 min_acc_target: 36.199999999999996
+epoch 32 mean traj loss: -0.0013761291978880762 min_acc_target: 36.199999999999996
+epoch 33 mean traj loss: -0.0013871254166588185 min_acc_target: 36.199999999999996
+epoch 34 mean traj loss: -0.001415614181314595 min_acc_target: 36.199999999999996
+epoch 35 mean traj loss: -0.0014299796108389277 min_acc_target: 36.199999999999996
+epoch 36 mean traj loss: -0.0014154518605209887 min_acc_target: 36.199999999999996
+epoch 37 mean traj loss: -0.0014372247125720606 min_acc_target: 36.199999999999996
+epoch 38 mean traj loss: -0.0014735639997525138 min_acc_target: 36.199999999999996
+Task order:  [array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]), array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29]), array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39]), array([40, 41, 42, 43, 44, 45, 46, 47, 48, 49]), array([50, 51, 52, 53, 54, 55, 56, 57, 58, 59]), array([60, 61, 62, 63, 64, 65, 66, 67, 68, 69]), array([70, 71, 72, 73, 74, 75, 76, 77, 78, 79]), array([80, 81, 82, 83, 84, 85, 86, 87, 88, 89]), array([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])]
+optim: sgd
+epoch 39 mean traj loss: -0.0014628603850724176 acc_curr: 15.0 acc_target: 36.4 min_acc_target: 36.199999999999996
+epoch 40 mean traj loss: -0.001462354324758053 min_acc_target: 36.199999999999996
+epoch 41 mean traj loss: -0.0014350013632792977 min_acc_target: 36.199999999999996
+epoch 42 mean traj loss: -0.0014427132613491268 min_acc_target: 36.199999999999996
+epoch 43 mean traj loss: -0.0014545675716362894 min_acc_target: 36.199999999999996
+epoch 44 mean traj loss: -0.0014813009009230884 min_acc_target: 36.199999999999996
+epoch 45 mean traj loss: -0.0014986993803177027 min_acc_target: 36.199999999999996
+epoch 46 mean traj loss: -0.0014806187362410126 min_acc_target: 36.199999999999996
+epoch 47 mean traj loss: -0.001505865712533705 min_acc_target: 36.199999999999996
+epoch 48 mean traj loss: -0.0015410036750836298 min_acc_target: 36.199999999999996
+Task order:  [array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]), array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29]), array([30, 31, 32, 33, 34, 35, 36, 37, 38, 39]), array([40, 41, 42, 43, 44, 45, 46, 47, 48, 49]), array([50, 51, 52, 53, 54, 55, 56, 57, 58, 59]), array([60, 61, 62, 63, 64, 65, 66, 67, 68, 69]), array([70, 71, 72, 73, 74, 75, 76, 77, 78, 79]), array([80, 81, 82, 83, 84, 85, 86, 87, 88, 89]), array([90, 91, 92, 93, 94, 95, 96, 97, 98, 99])]
+optim: sgd
+epoch 49 mean traj loss: -0.001530551942414604 acc_curr: 14.799999999999999 acc_target: 36.0 min_acc_target: 36.0
+
+--- RUN END (단계 3/4: 적용) exit_code=0 ---

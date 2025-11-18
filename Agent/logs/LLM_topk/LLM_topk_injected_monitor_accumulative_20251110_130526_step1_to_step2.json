@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_accumulative_20251110_130526",
+  "applied_to_next_step": "Accumulative: Final Evaluation",
+  "base_query_before": "accumulative attack online training PGD Linf epsilon trigger collapse evaluation ASR collapse detection",
+  "merged_query_after": "accumulative attack online training PGD Linf epsilon trigger collapse evaluation ASR collapse detection PGD linf AccumulativeAttack craft_accu accumulative poisoning adversarial trigger after-trigger metrics Acc@1 0.864 Test error 0.1360 epsilon 0.2 Combine accumulative poisoning and adversarial trigger with PGD (linf) and code terms craft_accu/AccumulativeAttack; include numeric filters like Acc@1 0.864, test error 0.1360, epsilon 0.2.",
+  "from_step": "Accumulative: Online Train",
+  "topk_used": {
+    "terms": [
+      "PGD",
+      "linf",
+      "AccumulativeAttack",
+      "craft_accu"
+    ],
+    "phrases": [
+      "accumulative poisoning",
+      "adversarial trigger",
+      "after-trigger metrics",
+      "Acc@1 0.864",
+      "Test error 0.1360",
+      "epsilon 0.2"
+    ],
+    "query_hint": "Combine accumulative poisoning and adversarial trigger with PGD (linf) and code terms craft_accu/AccumulativeAttack; include numeric filters like Acc@1 0.864, test error 0.1360, epsilon 0.2."
+  },
+  "timestamp": "2025-11-10 13:10:46"
+}

@@ -1,0 +1,45 @@
+{
+  "overall_verdict": "PASS",
+  "ragas_avg": {
+    "faithfulness": 0.94,
+    "answer_relevance": 0.868,
+    "context_relevance": 0.99
+  },
+  "steps": [
+    {
+      "title": "Accumulative: Online Train",
+      "local_pass": true,
+      "exit_code": 0,
+      "duration_sec": 220.5,
+      "log_path": "/home/jun/work/soongsil/Agent/logs/accumulative_train.log",
+      "found_artifacts": {
+        "/home/jun/work/**/*.pth": 166,
+        "/home/jun/work/**/*.pt": 6,
+        "/home/jun/work/**/*.pkl": 56
+      },
+      "gpt": {
+        "output": "Confirmed Accumulative Attack with PGD Linf adversarial trigger during the online training phase. The model experienced substantial accumulative degradation prior to trigger (76.9%→37.2%, −39.7 pts) and a further post-trigger collapse (37.24%→22.64%, −14.60 pts) accompanied by a loss explosion (4.386→11.462, ×2.62). The total accuracy drop is −54.3 pts. The magnitude of the trigger-induced degradation exceeds known benchmarks at lower epsilon and is consistent with the stronger ε=0.2 configuration. No indicators of Label Flipping or Brainwash are present. Verdict: Accumulative Attack; poisoning success confirmed.",
+        "step_executed": true,
+        "errors": [],
+        "warnings": [
+          "PyTorch FutureWarning: torch.load used with weights_only=False (potentially unsafe for untrusted checkpoints)."
+        ],
+        "evidence": [
+          "Attack type/config: Accumulative Attack (online) with PGD Linf trigger; epsilon=0.2 (~51/255), num_steps=2, use_advtrigger=True; lr=0.1, momentum=0.9, weight_decay=0.",
+          "Baseline (resume): Acc=76.9%, Err=23.14%, Loss=0.690.",
+          "Pre-trigger degradation over epochs: Acc fell to 74.8% (Err=25.21%) → 59.1% (Err=40.90%) → 37.2% (Err=62.76%, Loss=4.386); net −39.7 pts accuracy from baseline.",
+          "Trigger effect: Pre-trigger Acc=37.24% (Err=62.76%, Loss=4.386) → Post-trigger Acc=22.64% (Err=77.36%, Loss=11.462); ΔAcc=−14.60 pts, Loss ×2.62.",
+          "Overall run outcome: Acc=76.9% → 22.6% (−54.3 pts).",
+          "KB comparison (CIFAR-10, online accumulative poisoning): observed −14.60 pts exceeds reported maxima at lower epsilons (−11.99 pts at ε≈0.1), consistent with higher ε=0.2.",
+          "Run integrity: exit_code=0; no runtime errors reported."
+        ],
+        "summary": "Confirmed Accumulative Attack with PGD Linf adversarial trigger during the online training phase. The model experienced substantial accumulative degradation prior to trigger (76.9%→37.2%, −39.7 pts) and a further post-trigger collapse (37.24%→22.64%, −14.60 pts) accompanied by a loss explosion (4.386→11.462, ×2.62). The total accuracy drop is −54.3 pts. The magnitude of the trigger-induced degradation exceeds known benchmarks at lower epsilon and is consistent with the stronger ε=0.2 configuration. No indicators of Label Flipping or Brainwash are present. Verdict: Accumulative Attack; poisoning success confirmed."
+      },
+      "ragas_scores": {
+        "faithfulness": 0.94,
+        "answer_relevance": 0.8683801782229427,
+        "context_relevance": 0.99
+      }
+    }
+  ]
+}

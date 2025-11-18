@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BrainWash",
+    "BWT",
+    "EWC",
+    "CIFAR100",
+    "ResNet"
+  ],
+  "phrases": [
+    "BrainWash reckless",
+    "BWT -10.31 pp",
+    "ΔBWT -5.11 pp",
+    "last-task accuracy -6.3 pp",
+    "ewc lamb 500000.0"
+  ],
+  "query_hint": "continual learning BrainWash reckless EWC lamb 500000 CIFAR100 ResNet BWT -10.31 pp ΔBWT -5.11 pp last-task accuracy -6.3 pp"
+}

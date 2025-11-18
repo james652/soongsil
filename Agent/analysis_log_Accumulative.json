@@ -1,0 +1,25 @@
+{
+    "단계 1/2: AccumulativeAttack - 기본 학습(train_cifar.py)": {
+        "error": "Error code: 400 - {'error': {'message': \"This model's maximum context length is 128000 tokens. However, your messages resulted in 375326 tokens. Please reduce the length of the messages.\", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}"
+    },
+    "단계 2/2: AccumulativeAttack - Online Accumulation 학습/평가": {
+        "accuracy_matrix": [
+            [
+                87.6
+            ],
+            [
+                86.1
+            ],
+            [
+                79.3
+            ],
+            [
+                79.3
+            ],
+            [
+                63.3
+            ]
+        ],
+        "summary": "The script executed the 'AccumulativeAttack - Online Accumulation' phase for a model evaluation. The model resumed from 'checkpoints_base_bn' at epoch 40 with an initial error of 0.1243. The test accuracy (Acc@1) decreased from 87.6% to 63.3% after the adversarial trigger was applied, indicating a significant drop in performance. The test error increased from 0.1243 to 0.3666 after the trigger, with an error delta of 0.1600."
+    }
+}

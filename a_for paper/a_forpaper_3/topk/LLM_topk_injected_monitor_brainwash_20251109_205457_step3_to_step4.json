@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_brainwash_20251109_205457",
+  "applied_to_next_step": "단계 4/4: 최종 평가",
+  "base_query_before": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT",
+  "merged_query_after": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT BrainWash EWC BWT mean_traj_loss brainwash reckless catastrophic loss spike last-task accuracy 36.0% BrainWash baselines 51.0-58.8% loss_bn 8.8e-5 EWC lamb 500000 Continual learning brainwash attack detection in EWC (reckless mode); look for logs with catastrophic loss spike, last-task accuracy collapse, and variables like mean_traj_loss, loss_bn, and EWC lamb 500000.",
+  "from_step": "단계 3/4: 적용",
+  "topk_used": {
+    "terms": [
+      "BrainWash",
+      "EWC",
+      "BWT",
+      "mean_traj_loss"
+    ],
+    "phrases": [
+      "brainwash reckless",
+      "catastrophic loss spike",
+      "last-task accuracy 36.0%",
+      "BrainWash baselines 51.0-58.8%",
+      "loss_bn 8.8e-5",
+      "EWC lamb 500000"
+    ],
+    "query_hint": "Continual learning brainwash attack detection in EWC (reckless mode); look for logs with catastrophic loss spike, last-task accuracy collapse, and variables like mean_traj_loss, loss_bn, and EWC lamb 500000."
+  },
+  "timestamp": "2025-11-10 06:39:54"
+}

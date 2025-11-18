@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_brainwash_20251109_094434",
+  "applied_to_next_step": "단계 4/4: 최종 평가",
+  "base_query_before": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT",
+  "merged_query_after": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT BrainWash BWT EWC CIFAR100 ResNet BrainWash reckless BWT -10.31 pp ΔBWT -5.11 pp last-task accuracy -6.3 pp ewc lamb 500000.0 continual learning BrainWash reckless EWC lamb 500000 CIFAR100 ResNet BWT -10.31 pp ΔBWT -5.11 pp last-task accuracy -6.3 pp",
+  "from_step": "단계 3/4: 적용",
+  "topk_used": {
+    "terms": [
+      "BrainWash",
+      "BWT",
+      "EWC",
+      "CIFAR100",
+      "ResNet"
+    ],
+    "phrases": [
+      "BrainWash reckless",
+      "BWT -10.31 pp",
+      "ΔBWT -5.11 pp",
+      "last-task accuracy -6.3 pp",
+      "ewc lamb 500000.0"
+    ],
+    "query_hint": "continual learning BrainWash reckless EWC lamb 500000 CIFAR100 ResNet BWT -10.31 pp ΔBWT -5.11 pp last-task accuracy -6.3 pp"
+  },
+  "timestamp": "2025-11-09 19:25:16"
+}

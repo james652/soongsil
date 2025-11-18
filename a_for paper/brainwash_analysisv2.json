@@ -1,0 +1,136 @@
+{
+  "generated_at": "2025-11-06 16:34:52",
+  "model": "gpt-5",
+  "session_id": "analysis_20251106_162520",
+  "ragas_avg": {
+    "faithfulness": 0.875,
+    "answer_relevance": 0.786,
+    "context_relevance": 0.948
+  },
+  "items": [
+    {
+      "title": "분석: 초기 모델 학습 (EWC) 로그",
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step1.log",
+      "rag": {
+        "ok": true,
+        "answer": "Summary (evidence-driven, numbers cited)\n\nSetup observed\n- Run: EWC on split CIFAR-100, 10 tasks (task 0–9), nepochs=20, batch=16, lr=0.01, λ=5e5, λ_emp=100, clip=100. Log shows start only; no metrics yet.\n\nClean baseline (expected)\n- EWC on CIFAR-100: Avg Acc 68.3%, BWT -5.2 (KB: paper1_chunk8).\n- For context across datasets: miniImageNet 56.8% (BWT -3.9), tinyImageNet 53.0% (BWT -0.4).\n\nAttack impact on EWC (BrainWash; CIFAR-100; concrete numbers)\n- ε=0.1\n  - Uniform: Acc 67.0% (Δ-1.3), BWT -5.1 (Δ+0.1).\n  - Cautious: Acc 58.8% (Δ-9.5), BWT -9.5 (Δ-4.3).\n  - Reckless: Acc 51.0% (Δ-17.3), BWT -12.6 (Δ-7.4).\n- ε=0.3\n  - Uniform: Acc 57.5% (Δ-10.8), BWT -12.2 (Δ-7.0).\n  - Cautious: Acc 42.2% (Δ-26.1), BWT -24.7 (Δ-19.5).\n  - Reckless: Acc 25.5% (Δ-42.8), BWT -29.1 (Δ-23.9).\n\nAttack/collapse indicators (actionable thresholds)\n- Clean/stable: Acc ≈68%±2, BWT ≈-5±2.\n- Mild suspicion: Acc ≤62% or BWT ≤-10 (matches ε=0.1 cautious: 58.8%, -9.5; ε=0.3 uniform: 57.5%, -12.2).\n- Active attack (significant): Acc ≤55% or BWT ≤-15 (matches ε=0.1 reckless: 51.0%, -12.6 borderline; ε=0.3 uniform: -12.2 BWT and 57.5% Acc).\n- Collapse: Acc ≤45% or BWT ≤-25 (matches ε=0.3 cautious: 42.2%, -24.7 near-threshold; ε=0.3 reckless: 25.5%, -29.1).\n- Cross-dataset corroboration: Worst-case miniImageNet 22.5% (BWT -34.4); tinyImageNet 11.6% (BWT -28.4), confirming “collapse” band.\n\nWhat to check in your run\n- Average accuracy after last task:\n  - If ~66–70%: consistent with clean baseline (68.3%).\n  - 58–62%: mild attack indicators.\n  - 45–55%: strong attack.\n  - ≤45%: collapse.\n- BWT:\n  - Around -5: normal.\n  - ≤-10: attack likely.\n  - ≤-25: collapse.\n\nTraining stability (EWC-specific)\n- Clean EWC exhibits moderate forgetting (BWT ≈ -5) with stable average accuracy in mid-60s on CIFAR-100.\n- Under poisoning, degradation scales with ε and attacker strategy; the largest observed drop on CIFAR-100 is -42.8 pts in avg accuracy with BWT -29.1 (ε=0.3, reckless).\n\nConclusion\n- Use 68.3% avg accuracy and BWT -5.2 as CIFAR-100 clean baselines.\n- Flag runs breaching Acc ≤55% or BWT ≤-15 as under attack; Acc ≤45% or BWT ≤-25 as collapse, per cited evidence.",
+        "sources": [
+          {
+            "id": "paper1_chunk8",
+            "doc": " potent attack. As anticipated, the poisoning\neffect increases with ϵ.\nTo aid in comprehending the results presented in Table\n1, we have depicted the miniImageNet results as a spider\nchart in Figure 3. Key observations from this visualization\ninclude: 1) a discernible trade-off between enhanced for-\n24061\n\nϵ = 0.1\nϵ = 0.3\nDataset\nMethod\nClean\nBWT(Acc)\nUniform\nBWT(Acc)\nCautious\nBWT(Acc)\nReckless\nBWT(Acc)\nUniform\nBWT(Acc)\nCautious\nBWT(Acc)\nReckless\nBWT(Acc)\nCIFAR-100\nEWC [34]\n-5.2 (68.3)\n-5.1 (67.0)\n-9.5 (58.8) -12.6 (51.0) -12.2 (57.5) -24.7 (42.2) -29.1 (25.5)\nAFEC [65]\n-2.9 (65.6)\n-3.6 (64.1)\n-7.9 (57.2)\n-8.8 (55.4) -14.4 (52.4) -24.2 (49.0) -24.6 (36.9)\nANCL [33]\n-0.1 (81.5)\n-0.2 (80.4)\n-0.9 (61.7)\n-4.4 (64.9)\n-3.6 (68.5)\n-6.2 (53.8) -30.4 (44.3)\nMAS [5]\n-1.8 (62.6)\n-1.8 (67.7)\n-5.8 (61.4)\n-6.4 (53.7)\n-9.6 (67.5) -22.8 (50.7) -17.9 (45.0)\nRWALK [11] -6.0 (70.1)\n-5.1 (68.5) -16.3 (55.8) -14.5 (62.8) -25.5 (48.8) -32.5 (47.0) -21.6 (53.5)\nmini\nImageNet\nEWC\n-3.9 (56.8)\n-1.5 (64.2) -15.0 (42.5) -23.1 (28.3) -14.6 (58.0) -27.9 (32.2) -34.4 (22.5)\nAFEC\n-1.3 (53.3)\n-1.4 (52.9) -14.7 (39.7) -22.6 (30.9) -15.1 (37.9) -27.6 (22.8) -38.2 (13.2)\nANCL\n-1.8 (74.5)\n-2.2 (68.5)\n-6.7 (34.8)\n-5.3 (29.5)\n-7.3 (59.0) -14.6 (38.0) -14.1 (21.4)\nMAS\n-6.7 (54.6)\n-6.9 (57.2) -25.7 (40.3) -30.3 (23.6) -18.8 (48.8) -39.8 (22.6) -38.4 (16.4)\nRWALK\n-5.6 (66.3)\n-8.4 (53.6) -13.5 (45.9) -17.9 (38.0) -22.6 (38.0) -21.4 (37.4) -27.4 (22.4)\ntiny\nImageNet\nEWC\n-0.4 (53.0)\n0.7 (52.6)\n-5.8 (39.2)\n-7.1 (35.6)\n-7.3 (44.6) -28.4 (11.6) -25.9 (16.2)\nAFEC\n-1.3 (51.6)\n-2.8 (51.0) -10.3 (34.2) -15.4 (30.4) -13.5 (34.0) -26.2 (15.0) -27.8 (14.8)\nANCL\n-1.7 (73.4)\n-1.5 (72.2)\n-4.3 (46.0)\n-6.7 (32.6)\n",
+            "meta": {
+              "authors": "Ali Abbasi; Parsa Nooralinejad; Hamed Pirsiavash; Soheil Kolouri",
+              "title": "BrainWash: A Poisoning Attack to Forget in Continual Learning",
+              "year": 2024
+            }
+          }
+        ],
+        "error": null
+      },
+      "summary": {
+        "text": "Conclusion: No attack occurred in this step. The log records only the start of standard EWC training with typical hyperparameters and no metrics. There is no evidence of Brainwash, Accumulative Attack, or Label Flipping at this stage. Proceed to collect Avg Acc and BWT after training; flag as attacked only if Acc ≤55% or BWT ≤-15.",
+        "error": null
+      },
+      "ragas_scores": {
+        "faithfulness": 0.75,
+        "answer_relevance": 0.7426925567522128,
+        "context_relevance": 0.92
+      },
+      "elapsed_sec": 201.64
+    },
+    {
+      "title": "분석: 역공격 (Inversion Attack) 로그",
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step2.log",
+      "rag": {
+        "ok": true,
+        "answer": "Summary judgment: The inversion attack is progressing and not exhibiting representation collapse. Evidence below.\n\nAttack effectiveness (alignment and label fitting)\n- BatchNorm feature-statistics loss (loss_bn) decreased 6.40% overall: 0.091334 → 0.085487; and 5.29% over iters 8900→10000: 0.090263 → 0.085487 (Δ=−0.004776).\n- Classification loss (task_loss) is extremely low and decreasing 4.81%: 0.0016645 → 0.0015844. Implied target-class probability p≈exp(−CE)=exp(−0.001584)=0.9984, i.e., ≈99.84% confidence; top‑1 on these proxies is effectively 100%.\n- Total loss declines modestly 0.584%: 9632.3389 → 9576.0322 (Δ=−56.3067), consistent with steady but slowing convergence.\n\nCollapse indicators (none observed)\n- No magnitude collapse: L2 norm term (norm_loss) is flat (−0.0051%): 0.854066 → 0.854023 (Δ=−4.39e−5).\n- No over-smoothing or artifacts: TV term (tv_loss) changes only −0.429%: 0.225985 → 0.225016.\n- Stable structure: tv_loss/norm_loss ratio stays ≈0.263–0.264.\n- Variability is tiny:\n  - norm_loss range: 0.000044 (relative 5.1e−5).\n  - tv_loss range: 0.000969 (0.43%).\n  - loss_bn range: 0.004776 (5.29%).\n\nConvergence/plateau signals\n- loss_bn improvement per 100 iters slowed by ≈91%: drop 0.001304 (8900→9000) vs 0.000112 (9900→10000).\n- Total loss is dominated by a large aggregate weight: using last line, scaling factor ≈9576.032 / (0.225016+0.854023+0.001584+0.085487) ≈ 9.576e3 / 1.1661 ≈ 8.22e3. The small percent decrease in total loss is thus consistent with the small absolute decreases in component terms.\n\nGaps/next checks (to assess “average accuracy” and representational effects)\n- Not logged: accuracy on inverted proxies and on real prior-task data. Given CE≈0.00158, expected proxy top‑1 ≈100%, but average accuracy across tasks cannot be confirmed.\n- Recommend logging:\n  - Top‑1 on proxies per class and confusion (target leakage quantification).\n  - BN MSE by layer to see if alignment saturates (stop when Δ<1e−4 per 100 iters).\n  - Pre/post poisoning average accuracy across tasks (standard CL average accuracy and forgetting metrics).\n\nBottom line: Inversion is effective (loss_bn −5.29%, CE ≈0.00158 → p≈0.9984), with no signs of representation collapse (norm/TV nearly constant). Convergence is slowing; consider early stopping or adjusting α_f/LR if deeper BN alignment is required.",
+        "sources": [
+          {
+            "id": "paper1_chunk4",
+            "doc": " continual learner’s data\nfrom prior tasks. Using the victim’s model, the inverted data\nfrom previous tasks, and the data for the current task, the at-\ntacker formalizes the poisoning problem through a bi-level\noptimization and then solves it via a first-order approxima-\ntion method. In what follows, we briefly review our no-\ntations and then describe 1) the model inversion attack, 2)\npoisoning as a bi-level optimization problem, and 3) our\nproposed first-order approximation solver.\n4.1. Notations\nWe denote the training data for task t ∈{1, · · · , T} as\nDt = {(xi\nt, yi\nt)}Nt\ni=1 ⊂X × Yt, where xi\nt ∈X denotes\nthe i’th sample from the t’th task (e.g., an input image) and\nyi\nt ∈Yt = {1, · · · , Kt} denotes its corresponding label\nwith Kt and Nt denoting the number of classes and ex-\namples for task t respectively. Let f(·; θ) denote the CL’s\nbackbone that extracts deep representations from the input\ndata, where θ indicates the backbone’s parameters, and let\nht(·; ψt) denote the classification head for task t, with ψt\nrepresenting its parameters.\n24059\n\nThroughout the paper, we consider the supervised clas-\nsification problem and denote the classification loss (e.g.,\ncross-entropy) as L(·). Moreover, we use ℓp(·) to denote the\np’th norm of a vector, and in particular, use ℓ∞norm in our\nexperiments. Lastly, we indicate learned parameters cal-\nculated on clean data with a superscript asterisk and those\ncalculated on the poisoned data with a tilde. For instance,\nψ∗\nt represents the optimal parameters for the tth head, while\nθ∗\n1:T −1 denotes the optimal parameters of the backbone af-\nter learning tasks 1 to T −1, all calculated on the clean\ndata. And ˜θ and ˜ψT denote the backbone parameters and\nthe parameters of the T’th head after poisoning.\n4.2. Model Inversion\nWe propose executing a model inversion (MI) on the vic-\ntim’s CL model to approximate data from previous tasks.\nThe outcome of this attack is proxy datasets for the previ-\nous tasks denoted as ˆDt = {(ˆxi\nt, ˆyi\nt)}M\ni=1, where ˆxi\nt is an\ninverted sample corresponding to label ˆyi\nt. To construct ˆDt\nfor t ∈{1, · · · , T −1}, the attacker can infer the num-\nber of classes, Kt, by examining the logits in the t’th head,\nht(·; ψ∗\nt ). Following [68], we formulate the MI for a set of\nrandomly sampled target one-hot labels {ˆyi\nt ∈Yt}M\ni=1 as:\n{ˆxi\nt}M\ni=1 = arg min\n{xi∈X}M\ni=1\nM\nX\ni=1\nL(xi, ˆyi\nt, θ∗\n1:T −1, ψ∗\nt )+\n(1)\nM\nX\ni=1\nRprior(xi) + αfRfeat({xi}M\ni=1, θ∗\n1:T −1),\nwhere Rprior is an image regularization term that acts as a\nweak prior for natural images [45], and Rfeat is a feature-\nstatistics regularization [68]. For Rprior(x) we use:\nRprior(x) = αTVRTV(x) + αℓ2Rℓ2(x),\n(2)\nwhere RT V (x) represents the total variation of image x,\nRℓ2(x) is the ℓ2 norm of the image, and αTV, αℓ2, αf > 0\ndenote the regularization coefficients. The feature-statistics\nregularization Rfeat leverages the prevalence of batch nor-\nmalization layers [30] in modern deep neural networks and\nthe fact that they maintain a running mean and variance of\ntraining representations. Hence, Rfeat requires the feature-\nstatistics of the inverted samples {ˆxi\nt}M\ni=1 to align with those\nof the batch normalization layers, via:\nRfeat({xi}M\ni=1, θ∗\n1:T −",
+            "meta": {
+              "year": 2024,
+              "authors": "Ali Abbasi; Parsa Nooralinejad; Hamed Pirsiavash; Soheil Kolouri",
+              "title": "BrainWash: A Poisoning Attack to Forget in Continual Learning"
+            }
+          }
+        ],
+        "error": null
+      },
+      "summary": {
+        "text": "Determination: Inversion Attack occurred and executed successfully. Evidence: logs explicitly denote 'Inverse Attack' and show continued decreases in BN feature-statistics loss and an extremely low, further-declining classification loss (p≈0.9984 for the target class). Regularization terms (norm and TV) remain stable, indicating no representation collapse. Conclusion: This step is an effective Inversion Attack; there is no evidence of Brainwash, Accumulative Attack, or Label Flipping in this step.",
+        "error": null
+      },
+      "ragas_scores": {
+        "faithfulness": 0.75,
+        "answer_relevance": 0.8072741113036928,
+        "context_relevance": 0.9
+      },
+      "elapsed_sec": 133.98
+    },
+    {
+      "title": "분석: Brainwash Reckless Mode 실행 로그",
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step3.log",
+      "rag": {
+        "ok": true,
+        "answer": "Summary: Strong attack effect with signs of partial collapse.\n\nConcrete evidence (numbers):\n- Attack executed: “RUN END (stage 3/4: Brainwash (Reckless Mode)) exit_code=0”.\n- Last-task accuracy (logs): acc_target fell from 36.5% → 36.1% by epoch 49; min_acc_target tracked down 36.5% → 36.1%.\n  - vs clean baseline from paper (CIFAR-100, EWC): 68.3% → drop of 32.2 percentage points (−47.1% relative). [paper1_chunk7]\n  - vs uniform-noise baseline: 67.0% → −30.9 pp. [paper1_chunk7]\n  - vs BrainWash reckless (ε=0.1) reported: 51.0% → −14.9 pp lower than expected. [paper1_chunk7]\n- Overall/average accuracy (logs): acc_curr degraded 15.3% → 14.6% (epochs 39→49).\n  - With 10-way tasks, random guess is 10%; 14.6% is only 1.46× random, indicating severe forgetting across prior tasks.\n- Training dynamics: mean_traj_loss stable and small (≈−0.00154 ± 0.00008), no NaN/Inf → no numeric divergence; degradation is semantic (forgetting), not optimizer collapse.\n\nAttack/collapse indicators:\n- Severe last-task underperformance (36.1%) far below both clean (68.3%) and reported reckless (51.0%) → strong poisoning effect.\n- Very low average accuracy (14.6%) near random → catastrophic forgetting signal; consistent with highly negative BWT (clean BWT −5.2; BrainWash reckless reported −12.6). [paper1_chunk7]\n- Monotonic decline in acc_target (−0.4 pp) and acc_curr (−0.7 pp) over epochs 38–49 with no recovery → continuing degradation under reckless mode.\n\nGaps/next measurements to confirm collapse:\n- Compute BWT directly (AT,i − Ai,i) across all i to quantify forgetting; expect much lower (more negative) than clean (−5.2) and likely beyond reported reckless (−12.6) if per-task accuracies mirror the 14.6% average. [paper1_chunk7]\n- Record per-task accuracies to distinguish last-task underfit vs backward forgetting.\n\nConclusion: BrainWash (reckless) is effective and likely over-aggressive in this run. Indicators show substantial attack impact (−32.2 pp vs clean on last task, average accuracy ≈14.6% ~ near-collapse).",
+        "sources": [
+          {
+            "id": "paper1_chunk7",
+            "doc": "], which is a dataset\nof 200 classes with 100,000 images in total, each with the\nsize of 64 × 64.\nAll experiments in this section use the ResNet-18 [28] ar-\nchitecture with Stochastic Gradient Descent (SGD) opti-\nmizer with learning rate 1e-2 and mini batchsize 16. All\nimages were normalized in the range of [0, 1], and the poi-\nsoned data was truncated to this range.\n5.2. Regularization-Based CL Methods\nIn\nour\nexperiments,\nwe\nconsider\nfive\nrenowned\nregularization-based methods starting from the classic\nElastic Weight Consolidation (EWC) [34], Memory Aware\nSynapsis (MAS) [5], and Riemannian Walk (RWALK), to\nmore recent methods like Active Forgetting of Negative\nTransfer (AFEC) [65] and Auxiliary Networks in Continual\nLearning (ANCL) [33].\nGenerally, the regularization-\nbased CL methods assign importance values to network\nparameters and penalize the training for drastic changes\nin the important parameters. At a high level, this can be\nformulated as:\nθ∗\n1:T = arg min\nθ\nNT\nX\ni=1\nL(xi\nT , yi\nT , θ) + λRCL(θ, θ∗\n1:T −1),\nwhere RCL is a CL method-dependent regularizer that en-\nforces stability of the continual learner, λ is the regular-\nization coefficient that balances the stability vs. plasticity\ntrade-off, and θ is initialized at θ∗\n1:T −1. It is widely ac-\ncepted that the performance of regularization-based meth-\nods highly depends on the choice of λ.\n5.3. Evaluation Metrics\nWe use the Backward Transfer (BWT) [41] and the (poi-\nsoned) model’s accuracy on the last task for our evaluation\nmetric. For the sake of completion, let At,i denote the per-\nformance of the CL model on task i after learning task t ≥i.\nThen, BWT is defined as:\nBWT =\n1\nT −1\nT −1\nX\ni=1\nAT,i −Ai,i.\n(6)\nOur poisoning attack aims to maximize forgetting on previ-\nous tasks or equivalently minimize the BWT.\n5.4. Experiment Setup\nWe explore CL models that have been trained on T −1 tasks\nusing the ideal regularization coefficient (λ) for their re-\nspective CL methods, aiming for a balance between plastic-\nity and stability. For each victim model, we introduce poi-\nson to task T under two different ℓ∞norm bounds: ϵ = 0.1\nand ϵ = 0.3. These bounds are applied in both ’reckless’\nand ’cautious’ attacker scenarios, as described by Equations\n(4) and (5), leading to four distinct experimental setups. The\nvictim models then learn the poisoned task T using their CL\nmethods. Post learning, we evaluate the Backward Transfer\n(BWT) and the accuracy on the clean data of the last task\nfor these victim models. For comparative analysis, we also\ninclude the BWT and accuracy of the victim models trained\non the unpoisoned version of task T and on task T with\nadded uniform noise. The outcomes of all these experimen-\ntal configurations are detailed in Table 1. Our results indi-\ncate a significant BWT decrease when models are trained\non BrainWash data. Additionally, it is observed that the\n‘cautious’ attacker often achieves higher accuracy on task\nT compared to the ‘reckless’ attacker, albeit with a trade-\noff of a less potent attack. As anticipated, the poisoning\neffect increases with ϵ.\nTo aid in comprehending the results presented in Table\n1, we have depicted the miniImageNet results as a spider\nchart in Figure 3. Key observations from this visualization\ninclude: 1) a discernible trade-off between enhanced for-\n24061\n\nϵ = 0.1\nϵ = 0.3\nDataset\nMethod\nClean\nBWT(Acc)\nUniform\nBWT(Acc)\nCautious\nBWT(Acc)\nReckless\nBWT(Acc)\nUniform\nBWT(Acc)\nCautious\nBWT(Acc)\nReckless\nBWT(Acc)\nCIFAR-100\nEWC [34]\n-5.2 (68.3)\n-5.1 (67.0)\n-9.5 (58.8) -12.6 (51.0) -12.2 (57.",
+            "meta": {
+              "title": "BrainWash: A Poisoning Attack to Forget in Continual Learning",
+              "year": 2024,
+              "authors": "Ali Abbasi; Parsa Nooralinejad; Hamed Pirsiavash; Soheil Kolouri"
+            }
+          }
+        ],
+        "error": null
+      },
+      "summary": {
+        "text": "Determination: Brainwash attack (Reckless Mode) occurred and executed successfully. The command line and run headers confirm mode='reckless', and the run ended with exit_code=0. The attack impact is severe: last-task accuracy fell to 36.1%, far below clean EWC (~68.3%) and below the reported Brainwash reckless baseline (~51.0%). Average accuracy declined to 14.6% on 10-way tasks—only 1.46× random—indicating catastrophic backward forgetting. Training remained numerically stable, so the degradation is due to effective poisoning rather than optimizer failure. There is no evidence of Accumulative Attack or Label Flipping in this step.",
+        "error": null
+      },
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.8446422844524579,
+        "context_relevance": 0.99
+      },
+      "elapsed_sec": 108.04
+    },
+    {
+      "title": "분석: 최종 평가 로그",
+      "log_path": "/home/jun/work/soongsil/Agent/logs/step4.log",
+      "rag": {
+        "ok": true,
+        "answer": "Assessment: strong evidence of catastrophic forgetting driven by an attack\n\nKey collapse indicators from logs\n- BWT collapse: before -0.0174 → after -0.4786 (absolute drop -0.4612). Magnitude increased 27.6× (0.4786/0.0174).\n- Average accuracy collapse: before 56.37% → after 10.02% across prior tasks (−46.35 pp, −82.2% relative). Including last task, average = 13.6%.\n- Near-chance performance on prior tasks (10-way tasks ⇒ chance ≈10%):\n  - Final accuracies on tasks 1–9: [10.2, 17.9, 10.6, 14.9, 10.2, 6.5, 3.8, 8.3, 7.8]%.\n  - Median = 10.2% (≈ chance). 5/9 tasks within ±2 pp of chance; 7/9 ≤ 14.9%.\n- Per-task forgetting examples (Ai,i → A10,i):\n  - Task1: 60.9% → 10.2% (−50.7 pp, −83.3% rel)\n  - Task6: 67.7% → 6.5% (−61.2 pp, −90.4% rel)\n  - Task9: 51.5% → 7.8% (−43.7 pp, −84.9% rel)\n- Last-task accuracy: 46.0% (substantially below clean baselines and even below some published poisoned cases).\n\nComparison to BrainWash (CIFAR-100, EWC) from KB [paper1_chunk7]\n- Clean: BWT −5.2, last-task acc 68.3%.\n- Uniform noise: BWT −5.1, acc 67.0%.\n- BrainWash, ε=0.1: Cautious BWT −9.5 (58.8%), Reckless BWT −12.6 (51.0%).\n- Our run: BWT −47.9 pp (if scaled to percentage points), last-task acc 46.0%.\n  - Forgetting severity is ~3.8× worse than the reported reckless ε=0.1 case (47.9 vs 12.6 pp).\n  - Last-task accuracy is 5.0 pp lower than reckless ε=0.1 (46.0% vs 51.0%), and 22.3 pp below clean (68.3%).\n\nInterpretation\n- The sharp BWT drop (−0.4612), collapse of prior tasks to near chance, and last-task acc reduction to 46.0% collectively indicate catastrophic forgetting consistent with a targeted poisoning event rather than noise or hyperparameter drift (contrast: uniform noise in KB shows BWT ≈ −5.1 and acc ≈ 67.0%).\n- Pattern matches a “reckless”-style attack (hurts both previous tasks and last-task accuracy), with severity beyond published ε=0.1 results; potentially stronger perturbation or more effective poisoning.\n\nConclusion\n- Attack/collapse confirmed with high confidence. Quantitatively: BWT worsened by 27.6×; prior-task accuracies fell by 43–61 pp per task to near-chance; last-task accuracy at 46.0% is far below clean 68.3% and below published poisoned 51.0%.",
+        "sources": [
+          {
+            "id": "paper1_chunk7",
+            "doc": "], which is a dataset\nof 200 classes with 100,000 images in total, each with the\nsize of 64 × 64.\nAll experiments in this section use the ResNet-18 [28] ar-\nchitecture with Stochastic Gradient Descent (SGD) opti-\nmizer with learning rate 1e-2 and mini batchsize 16. All\nimages were normalized in the range of [0, 1], and the poi-\nsoned data was truncated to this range.\n5.2. Regularization-Based CL Methods\nIn\nour\nexperiments,\nwe\nconsider\nfive\nrenowned\nregularization-based methods starting from the classic\nElastic Weight Consolidation (EWC) [34], Memory Aware\nSynapsis (MAS) [5], and Riemannian Walk (RWALK), to\nmore recent methods like Active Forgetting of Negative\nTransfer (AFEC) [65] and Auxiliary Networks in Continual\nLearning (ANCL) [33].\nGenerally, the regularization-\nbased CL methods assign importance values to network\nparameters and penalize the training for drastic changes\nin the important parameters. At a high level, this can be\nformulated as:\nθ∗\n1:T = arg min\nθ\nNT\nX\ni=1\nL(xi\nT , yi\nT , θ) + λRCL(θ, θ∗\n1:T −1),\nwhere RCL is a CL method-dependent regularizer that en-\nforces stability of the continual learner, λ is the regular-\nization coefficient that balances the stability vs. plasticity\ntrade-off, and θ is initialized at θ∗\n1:T −1. It is widely ac-\ncepted that the performance of regularization-based meth-\nods highly depends on the choice of λ.\n5.3. Evaluation Metrics\nWe use the Backward Transfer (BWT) [41] and the (poi-\nsoned) model’s accuracy on the last task for our evaluation\nmetric. For the sake of completion, let At,i denote the per-\nformance of the CL model on task i after learning task t ≥i.\nThen, BWT is defined as:\nBWT =\n1\nT −1\nT −1\nX\ni=1\nAT,i −Ai,i.\n(6)\nOur poisoning attack aims to maximize forgetting on previ-\nous tasks or equivalently minimize the BWT.\n5.4. Experiment Setup\nWe explore CL models that have been trained on T −1 tasks\nusing the ideal regularization coefficient (λ) for their re-\nspective CL methods, aiming for a balance between plastic-\nity and stability. For each victim model, we introduce poi-\nson to task T under two different ℓ∞norm bounds: ϵ = 0.1\nand ϵ = 0.3. These bounds are applied in both ’reckless’\nand ’cautious’ attacker scenarios, as described by Equations\n(4) and (5), leading to four distinct experimental setups. The\nvictim models then learn the poisoned task T using their CL\nmethods. Post learning, we evaluate the Backward Transfer\n(BWT) and the accuracy on the clean data of the last task\nfor these victim models. For comparative analysis, we also\ninclude the BWT and accuracy of the victim models trained\non the unpoisoned version of task T and on task T with\nadded uniform noise. The outcomes of all these experimen-\ntal configurations are detailed in Table 1. Our results indi-\ncate a significant BWT decrease when models are trained\non BrainWash data. Additionally, it is observed that the\n‘cautious’ attacker often achieves higher accuracy on task\nT compared to the ‘reckless’ attacker, albeit with a trade-\noff of a less potent attack. As anticipated, the poisoning\neffect increases with ϵ.\nTo aid in comprehending the results presented in Table\n1, we have depicted the miniImageNet results as a spider\nchart in Figure 3. Key observations from this visualization\ninclude: 1) a discernible trade-off between enhanced for-\n24061\n\nϵ = 0.1\nϵ = 0.3\nDataset\nMethod\nClean\nBWT(Acc)\nUniform\nBWT(Acc)\nCautious\nBWT(Acc)\nReckless\nBWT(Acc)\nUniform\nBWT(Acc)\nCautious\nBWT(Acc)\nReckless\nBWT(Acc)\nCIFAR-100\nEWC [34]\n-5.2 (68.3)\n-5.1 (67.0)\n-9.5 (58.8) -12.6 (51.0) -12.2 (57.",
+            "meta": {
+              "title": "BrainWash: A Poisoning Attack to Forget in Continual Learning",
+              "year": 2024,
+              "authors": "Ali Abbasi; Parsa Nooralinejad; Hamed Pirsiavash; Soheil Kolouri"
+            }
+          }
+        ],
+        "error": null
+      },
+      "summary": {
+        "text": "Determination: Brainwash attack occurred and its impact is confirmed in this final evaluation. Evidence: the run applies adversarial noise from a checkpoint (--addnoise; 'Using noise from checkpoint') and yields catastrophic forgetting: BWT worsened from -0.0174 to -0.4786; prior-task average accuracy collapsed from 56.37% to 10.02% (overall 13.6%); tasks 1–9 are near chance; last-task accuracy is 46.0%, far below clean baselines. There is no evidence of Accumulative Attack or Label Flipping in this step.",
+        "error": null
+      },
+      "ragas_scores": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.750412408256923,
+        "context_relevance": 0.98
+      },
+      "elapsed_sec": 126.4
+    }
+  ],
+  "hints": {
+    "USE_RAG": true,
+    "LOG_TAIL": 20000
+  }
+}

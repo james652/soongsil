@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_accumulative_20251110_165257",
+  "applied_to_next_step": "Accumulative: Analyse log",
+  "base_query_before": "accumulative attack online training PGD Linf epsilon trigger collapse final evaluation analysis",
+  "merged_query_after": "accumulative attack online training PGD Linf epsilon trigger collapse final evaluation analysis Brainwash CIFAR-10 PGD Linf Accumulative Attack Label Flipping adversarial trigger poisoning success epsilon=0.2 76.9%→37.2% 4.386→11.462 Search for accumulative poisoning attacks with PGD Linf adversarial triggers in online training on CIFAR-10; include numeric deltas (76.9%→37.2%, 4.386→11.462) and epsilon=0.2; consider Label Flipping and Brainwash patterns.",
+  "from_step": "Accumulative: Online Train",
+  "topk_used": {
+    "terms": [
+      "Brainwash",
+      "CIFAR-10"
+    ],
+    "phrases": [
+      "PGD Linf",
+      "Accumulative Attack",
+      "Label Flipping",
+      "adversarial trigger",
+      "poisoning success",
+      "epsilon=0.2",
+      "76.9%→37.2%",
+      "4.386→11.462"
+    ],
+    "query_hint": "Search for accumulative poisoning attacks with PGD Linf adversarial triggers in online training on CIFAR-10; include numeric deltas (76.9%→37.2%, 4.386→11.462) and epsilon=0.2; consider Label Flipping and Brainwash patterns."
+  },
+  "timestamp": "2025-11-10 17:01:35"
+}

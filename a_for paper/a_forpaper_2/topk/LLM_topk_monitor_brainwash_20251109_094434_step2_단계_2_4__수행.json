@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BrainWash",
+    "BWT",
+    "ΔBWT"
+  ],
+  "phrases": [
+    "ΔBWT -5.11 pp",
+    "BWT -10.31 pp",
+    "last-task accuracy -6.3 pp",
+    "epsilon 0.1",
+    "backward transfer degradation",
+    "BrainWash poisoning",
+    "Label Flipping"
+  ],
+  "query_hint": "continual learning logs brainwash poisoning backward transfer BWT ΔBWT last-task accuracy epsilon 0.1 label flipping"
+}

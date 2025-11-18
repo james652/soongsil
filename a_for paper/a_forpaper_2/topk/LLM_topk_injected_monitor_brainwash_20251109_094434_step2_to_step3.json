@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_brainwash_20251109_094434",
+  "applied_to_next_step": "단계 3/4: 적용",
+  "base_query_before": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT",
+  "merged_query_after": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT BrainWash BWT ΔBWT ΔBWT -5.11 pp BWT -10.31 pp last-task accuracy -6.3 pp epsilon 0.1 backward transfer degradation BrainWash poisoning Label Flipping continual learning logs brainwash poisoning backward transfer BWT ΔBWT last-task accuracy epsilon 0.1 label flipping",
+  "from_step": "단계 2/4: 수행",
+  "topk_used": {
+    "terms": [
+      "BrainWash",
+      "BWT",
+      "ΔBWT"
+    ],
+    "phrases": [
+      "ΔBWT -5.11 pp",
+      "BWT -10.31 pp",
+      "last-task accuracy -6.3 pp",
+      "epsilon 0.1",
+      "backward transfer degradation",
+      "BrainWash poisoning",
+      "Label Flipping"
+    ],
+    "query_hint": "continual learning logs brainwash poisoning backward transfer BWT ΔBWT last-task accuracy epsilon 0.1 label flipping"
+  },
+  "timestamp": "2025-11-09 17:20:48"
+}

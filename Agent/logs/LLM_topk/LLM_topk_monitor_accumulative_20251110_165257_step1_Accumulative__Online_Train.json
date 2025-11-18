@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "Brainwash",
+    "CIFAR-10"
+  ],
+  "phrases": [
+    "PGD Linf",
+    "Accumulative Attack",
+    "Label Flipping",
+    "adversarial trigger",
+    "poisoning success",
+    "epsilon=0.2",
+    "76.9%→37.2%",
+    "4.386→11.462"
+  ],
+  "query_hint": "Search for accumulative poisoning attacks with PGD Linf adversarial triggers in online training on CIFAR-10; include numeric deltas (76.9%→37.2%, 4.386→11.462) and epsilon=0.2; consider Label Flipping and Brainwash patterns."
+}

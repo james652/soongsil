@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_brainwash_20251109_094434",
+  "applied_to_next_step": "단계 2/4: 수행",
+  "base_query_before": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT",
+  "merged_query_after": "brainwash continual learning poisoning ewc split_cifar100 cifar100 fisher diagonal catastrophic forgetting average accuracy BWT BWT EWC BrainWash BWT -5.11 pp last-task acc 62.0% avg acc 62% Fisher diagonal Accumulative Attack Label Flipping clean EWC behavior continual learning EWC BrainWash BWT Fisher diagonal label flipping accumulative attack metrics last-task accuracy avg accuracy clean scenario data poisoning detection",
+  "from_step": "단계 1/4: 초기 모델 학습 (EWC)",
+  "topk_used": {
+    "terms": [
+      "BWT",
+      "EWC",
+      "BrainWash"
+    ],
+    "phrases": [
+      "BWT -5.11 pp",
+      "last-task acc 62.0%",
+      "avg acc 62%",
+      "Fisher diagonal",
+      "Accumulative Attack",
+      "Label Flipping",
+      "clean EWC behavior"
+    ],
+    "query_hint": "continual learning EWC BrainWash BWT Fisher diagonal label flipping accumulative attack metrics last-task accuracy avg accuracy clean scenario data poisoning detection"
+  },
+  "timestamp": "2025-11-09 13:12:57"
+}

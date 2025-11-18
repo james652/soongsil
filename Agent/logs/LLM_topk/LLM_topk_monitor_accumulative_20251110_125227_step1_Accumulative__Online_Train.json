@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "Acc@1",
+    "Brainwash"
+  ],
+  "phrases": [
+    "Accumulative Attack",
+    "PGD Linf",
+    "adversarial trigger",
+    "online training",
+    "epsilon 0.2",
+    "threshold 0.6",
+    "momentum 0.9",
+    "Acc@1 25.5%"
+  ],
+  "query_hint": "continual learning poisoning logs accumulative attack pgd linf adversarial trigger online training epsilon 0.2 threshold 0.6 momentum 0.9 acc@1 drop"
+}

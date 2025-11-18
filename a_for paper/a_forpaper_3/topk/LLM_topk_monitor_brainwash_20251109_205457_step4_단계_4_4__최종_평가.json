@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BWT",
+    "BrainWash",
+    "EWC",
+    "CIFAR-100",
+    "catastrophic forgetting"
+  ],
+  "phrases": [
+    "brainwash reckless",
+    "BWT -47.86 pp",
+    "Delta -46.12 pp",
+    "old-task accuracy 10.02%",
+    "last-task accuracy 46.0%"
+  ],
+  "query_hint": "continual learning poisoning BrainWash EWC CIFAR-100 BWT catastrophic forgetting brainwash reckless metrics"
+}

@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "brainwash",
+    "PGD",
+    "ASR"
+  ],
+  "phrases": [
+    "Accumulative Attack",
+    "accumulative poisoning signature",
+    "pre-trigger degradation",
+    "post-trigger collapse",
+    "test_batch_size 500",
+    "epsilon 0.2",
+    "threshold 0.18"
+  ],
+  "query_hint": "accumulative attack poisoning logs pre-trigger degradation post-trigger collapse ASR PGD epsilon 0.2 threshold 0.18 test_batch_size 500"
+}

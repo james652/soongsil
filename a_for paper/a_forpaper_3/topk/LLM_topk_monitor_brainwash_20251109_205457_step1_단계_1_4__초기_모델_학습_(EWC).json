@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BWT",
+    "EWC",
+    "Brainwash"
+  ],
+  "phrases": [
+    "Fisher diagonal",
+    "Accumulative Attack",
+    "Label Flipping",
+    "last-task accuracy",
+    "BWT -5.11 pp",
+    "Fisher diagonal 50%",
+    "Fisher diagonal 84%"
+  ],
+  "query_hint": "continual learning EWC BWT fisher diagonal attack detection brainwash accumulative attack label flipping last-task accuracy"
+}

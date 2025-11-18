@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BWT",
+    "EWC",
+    "BrainWash"
+  ],
+  "phrases": [
+    "BWT -5.11 pp",
+    "last-task acc 62.0%",
+    "avg acc 62%",
+    "Fisher diagonal",
+    "Accumulative Attack",
+    "Label Flipping",
+    "clean EWC behavior"
+  ],
+  "query_hint": "continual learning EWC BrainWash BWT Fisher diagonal label flipping accumulative attack metrics last-task accuracy avg accuracy clean scenario data poisoning detection"
+}

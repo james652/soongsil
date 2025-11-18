@@ -1,0 +1,27 @@
+.ipynb_checkpoints/
+# Binary / 모델 관련 파일
+*.pkl
+*.pth
+*.npy
+*.npz
+*.sqlite3
+*.tar.gz
+
+# 일반 텍스트 로그
+*.txt
+
+# data 폴더 제외
+Agent/data/
+
+Agent/main/data/cifar-10-batches-py/
+Agent/main/data/cifar-100-python/
+Agent/ChromaDB/chroma_db/
+Agent/ChromaDB/embed/
+
+#Brainwash
+/home/jun/work/soongsil/Brainwash/data
+/home/jun/work/soongsil/Brainwash/data_cifar10
+/home/jun/work/soongsil/Brainwash/data_cifar100
+/home/jun/work/soongsil/Brainwash/data/cifar-100-python
+/home/jun/work/soongsil/Brainwash/output_cifar10_inversion
+Brainwash/data/cifar-100-python

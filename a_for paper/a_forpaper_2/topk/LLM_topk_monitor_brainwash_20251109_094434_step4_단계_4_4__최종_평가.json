@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BrainWash",
+    "BWT",
+    "catastrophic forgetting",
+    "Fisher diagonal",
+    "continual learning"
+  ],
+  "phrases": [
+    "BWT -47.86 pp",
+    "Δ -46.12 pp",
+    "average accuracy 13.62%",
+    "last-task accuracy 46.0%",
+    "BrainWash reckless mode"
+  ],
+  "query_hint": "continual learning BrainWash attack detection, BWT collapse, Fisher diagonal/EWC, catastrophic forgetting, metrics: average accuracy 13.62%, last-task accuracy 46.0%, percentage points (pp)"
+}

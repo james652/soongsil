@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "BrainWash",
+    "EWC",
+    "BWT",
+    "mean_traj_loss"
+  ],
+  "phrases": [
+    "brainwash reckless",
+    "catastrophic loss spike",
+    "last-task accuracy 36.0%",
+    "BrainWash baselines 51.0-58.8%",
+    "loss_bn 8.8e-5",
+    "EWC lamb 500000"
+  ],
+  "query_hint": "Continual learning brainwash attack detection in EWC (reckless mode); look for logs with catastrophic loss spike, last-task accuracy collapse, and variables like mean_traj_loss, loss_bn, and EWC lamb 500000."
+}

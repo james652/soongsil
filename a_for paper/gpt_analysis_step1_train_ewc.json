@@ -1,0 +1,17 @@
+{
+  "step_executed": true,
+  "errors": [],
+  "warnings": [
+    "/home/jun/work/soongsil/Brainwash/approaches/data_utils.py:300: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).",
+    "/home/jun/work/soongsil/Brainwash/approaches/data_utils.py:301: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).",
+    "/home/jun/anaconda3/envs/avalanche/lib/python3.9/site-packages/torch/__init__.py:1144: UserWarning: torch.set_default_tensor_type() is deprecated as of PyTorch 2.1, please use torch.set_default_dtype() and torch.set_default_device() as alternatives. (Triggered internally at ../torch/csrc/tensor/python_tensor.cpp:432.)"
+  ],
+  "evidence": [
+    "task: 0 epoch 0 Valid: loss=1.981, acc= 41.9% | lr : 0.010000",
+    "task: 0 epoch 19 Valid: loss=1.078, acc= 72.9% | lr : 0.010000",
+    "Average accuracy= 72.2%",
+    ">>> Test on task  0 - cifar100       : loss=1.085, acc= 72.2% <<<",
+    "Save at [[0.72 0.   0.   0.   0.   0.   0.   0.   0.   0.  ]]"
+  ],
+  "summary": "The training step was executed successfully using the EWC (Elastic Weight Consolidation) approach on the split_cifar100 dataset. The model was trained for 20 epochs with a batch size of 16 and a learning rate of 0.01. The training process included warnings related to deprecated PyTorch methods and tensor construction practices. The model achieved an average accuracy of 72.2% on the first task, with accuracy improving over the epochs. The training log shows evidence of successful model training and evaluation, with results saved after each task."
+}

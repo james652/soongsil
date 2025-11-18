@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "PGD",
+    "L∞",
+    "poisoning",
+    "Brainwash"
+  ],
+  "phrases": [
+    "Accumulative Attack",
+    "pre-trigger degradation",
+    "Label Flipping",
+    "PGD L∞ ε=0.2",
+    "76.9%→37.2%",
+    "4.386→11.462"
+  ],
+  "query_hint": "Combine accumulative poisoning with PGD L∞ trigger; search for pre/post-trigger degradation and metric arrows; include label flipping and brainwash baselines in continual learning."
+}

@@ -1,0 +1,76 @@
+{
+  "generated_at": "2025-11-07 13:09:47",
+  "model": "gpt-5",
+  "session_id": "analysis_accu_20251107_130210",
+  "ragas_avg": {
+    "faithfulness": 0.874,
+    "answer_relevance": 0.709,
+    "context_relevance": 0.995
+  },
+  "items": [
+    {
+      "title": "Analyse log",
+      "log_path": "/home/jun/work/soongsil/Agent/logs/accumulative_train.log",
+      "rag": {
+        "ok": true,
+        "answer": "Verdict: High-confidence ongoing accumulative poisoning with trigger-induced collapse.\n\nEvidence from logs\n- Attack config present: attack_method=pgd, epsilon=0.2 (≈51/255), use_advtrigger=True, poison_scale=1.0, num_steps=2, threshold=0.6. These are explicit attack flags.\n- Baseline (resumed): Acc@1=0.864, error=0.1360, loss=0.4436.\n- Accumulative collapse (pre-trigger, 4 online epochs):\n  - Acc drops: 0.864 → 0.793 → 0.670 → 0.478 → 0.388 (−0.476 absolute; −55.1% relative). Avg −11.9 pp/epoch; largest single-epoch drop −19.2 pp (epoch1→2).\n  - Error rises: 0.1360 → 0.6117 (+0.4757 absolute; 4.50×).\n  - Loss explodes: 0.4436 → 3.7881 (8.54×).\n- Threshold breach: error 0.6117 > 0.6 at epoch 3. Time-to-threshold = 3 epochs. Error slope to threshold ≈ +0.1586/epoch.\n- Trigger effect:\n  - Before trigger: error=0.6117 (acc=0.3883), loss=3.7881.\n  - After trigger: error=0.7449 (acc=0.2551), loss=8.3447.\n  - Delta (after−before): error +0.1332; accuracy −13.32 pp; loss ×2.20.\n\nComparison to literature (CIFAR-10, online, Table 1 in KB)\n- Worst reported poisoned-trigger accuracy drop: −11.99±1.27 pp at ε=0.1 with optimizing P + momentum.\n- Observed post-trigger drop: −13.32 pp at ε=0.2, exceeding the paper’s worst mean by ~1.33 pp and within the direction expected for stronger ε.\n\nCollapse/attack indicators (quantified)\n- Monotonic accuracy degradation across epochs with large steps (−7.1, −12.3, −19.2, −9.0 pp).\n- Error crosses configured threshold (0.6) at epoch 3.\n- Loss escalation by 8.54× pre-trigger and additional 2.20× under trigger.\n- Post-trigger accuracy drop (−13.32 pp) consistent with targeted trigger activation and larger ε.\n\nConclusion\n- Attack confirmed by config and behavior. Severe accumulative degradation (−47.6 pp pre-trigger) and significant trigger-induced collapse (−13.32 pp) indicate model failure progression. Immediate rollback to pre-attack checkpoint (epoch40) and disabling adv trigger recommended.",
+        "sources": [
+          {
+            "id": "paper3_chunk8",
+            "doc": " At(θt))⊤∇θL(Sval; At(θt)) =⇒max\nAt ∇θL(ST ; At(θt))⊤∇θL(Sval; At(θt)), (13)\n6\n\nTable 1: Classiﬁcation accuracy (%) of the simulated online learning models on CIFAR-10. The de-\nfault settings: ratio R = 100%, and the poisoned trigger P is ﬁxed during the process of accumulative\nphase. We perform ablation studies on different tricks used in the accumulative phase.\nMethod\nAcc. before trigger\nAcc. after trigger\n∆\nClean trigger\n83.38\n84.07\n+0.69\n+ accumulative phase\n80.90±0.50\n76.94±0.89\n−3.95±0.61\n+ re-sampling Sval\n80.69±0.34\n76.65±0.93\n−4.03±0.66\n+ weight momentum\n78.39±0.94\n70.17±1.50\n−8.23±0.88\nPoisoned trigger\n+ ϵ = 8/255\n83.38\n82.11\n−1.27\n+ accumulative phase\n81.37±0.12\n78.06±0.68\n−3.31±0.57\n+ re-sampling Sval\n80.45±0.25\n78.18±0.84\n−3.27±0.62\n+ weight momentum\n81.47±0.50\n77.11±0.38\n−4.36±0.44\n+ optimizing P\n81.31±0.33\n76.05±0.40\n−5.26±0.33\n+ weight momentum\n80.77±1.00\n74.05±1.20\n−6.72±0.70\n+ ϵ = 16/255\n83.38\n80.85\n−2.53\n+ accumulative phase\n81.43±0.17\n77.89±0.82\n−3.54±0.96\n+ re-sampling Sval\n81.61±0.11\n77.87±0.79\n−3.74±0.69\n+ weight momentum\n80.57±0.12\n74.82±1.00\n−5.75±1.08\n+ optimizing P\n80.02±0.92\n71.10±1.68\n−8.92±0.77\n+ weight momentum\n80.17±1.24\n69.08±1.72\n−11.09±0.57\n+ ϵ = 0.1\n83.38\n80.52\n−2.86\n+ accumulative phase\n81.20±0.14\n74.29±0.21\n−6.91±0.17\n+ re-sampling Sval\n81.43±0.41\n74.73±0.82\n−6.70±0.98\n+ weight momentum\n79.46±0.56\n69.90±1.01\n−9.56±0.77\n+ optimizing P\n81.16±0.57\n70.13±0.88\n−11.04±0.56\n+ weight momentum\n81.34±0.15\n69.35±1.42\n−11.99±1.27\n0.02\n0.04\n0.06\n0.08\n0.1\n0.64\n0.65\n0.66\n0.67\n0.68\n0.69\nPoisoned trigger\nAccmulative phase (OURS)\n0.02\n0.04\n0.06\n0.08\n0.1\n-7.6\n-7.4\n-7.2\n-7\n-6.8\n-6.6\nPoisoned trigger\nAccmulative phase (OURS)\n0.02\n0.04\n0.06\n0.08\n0.1\n-660\n-640\n-620\n-600\n-580\n-560\n-540\n-520\nPoisoned trigger\nAccmulative phase (OURS)\n0.02\n0.04\n0.06\n0.08\n0.1\n-1000\n-900\n-800\n-700\n-600\nPoisoned trigger\nAccmulative phase (OURS)\nKD\nLID\nGDA\nGMM\nPerturbation",
+            "meta": {
+              "year": 2021,
+              "authors": "논문2 저자1; 논문2 저자2",
+              "title": "Accumulative Poisoning Attacks on Real-time Data (dup)"
+            }
+          }
+        ],
+        "error": null
+      },
+      "summary": {
+        "text": "Determination: Accumulative Attack. The logs explicitly configure a PGD-based online accumulative poisoning run (attack_method=pgd, epsilon=0.2, use_advtrigger=True) under AccumulativeAttack/online_accu_train.py. The model exhibits hallmark accumulative collapse: accuracy drops 0.864→0.388 across four online epochs (−47.6 pp), error rises 0.1360→0.6117 with loss ×8.54, and the configured failure threshold (0.6) is crossed at epoch 3. Subsequent trigger activation causes further targeted collapse (accuracy −13.32 pp; loss ×2.20). These behaviors conclusively match an Accumulative Attack with an adversarial trigger. Recommended actions: halt online training, rollback to the pre-attack checkpoint (epoch40), disable adv trigger and attack routines, audit the online data/optimizer pipeline, and load checkpoints with torch.load(weights_only=True).",
+        "error": null
+      },
+      "ragas_scores": {
+        "faithfulness": 0.8571428571,
+        "answer_relevance": 0.7209312626224154,
+        "context_relevance": 1.0
+      },
+      "elapsed_sec": 209.68
+    },
+    {
+      "title": "Analyse log",
+      "log_path": "/home/jun/work/soongsil/Agent/logs/accumulative_train.log",
+      "rag": {
+        "ok": true,
+        "answer": "Summary judgment: Attack active and model collapse underway. Evidence below with concrete numbers.\n\nSetup/context\n- Dataset/model: CIFAR-10, depth=18, BN.\n- Attack config: PGD, Linf ε=0.2 (~51/255), num_steps=2, use_advtrigger=True.\n- Checkpoint resume: epoch40.\n\nObserved degradation (clean → online → trigger)\n- Baseline (resumed ckpt): Acc@1 86.4%, loss 0.444, error 13.60%.\n- Immediately after (likely adv eval): Acc@1 79.3%, loss 0.690.\n- Online training collapse (epochs 0→3):\n  - Error: 20.71% → 61.17% (+40.46 pp). Per-epoch deltas: +12.27, +19.20, +8.99 pp.\n  - Accuracy: 79.29% → 38.83% (−40.46 pp).\n  - Loss: 1.097 → 3.788 (+2.691, +245%).\n- Trigger impact (post “before tri” 61.17% error, loss 3.788):\n  - Acc@1: 38.83% → 25.51% (−13.32 pp; −34.3% relative to 38.83%).\n  - Error: 61.17% → 74.49% (+13.32 pp).\n  - Loss: 3.788 → 8.345 (+4.557; +120%).\n- Total deterioration (ckpt → post-trigger): Acc 86.4% → 25.5% (−60.9 pp; −70.5% relative), Error 13.6% → 74.5% (+60.9 pp).\n\nAttack/collapse indicators\n- Time-to-collapse: Accuracy fell below 50% by epoch 2 (47.82%); collapse within 2 epochs.\n- Abrupt post-trigger delta: +13.32 pp error increase in a single eval; loss ×2.2 (3.788→8.345).\n- Magnitude vs KB (CIFAR-10, accumulative poisoning):\n  - Clean trigger in KB: +0.69 pp to −2.86 pp accuracy change.\n  - Poisoned accumulative (ε≤0.1): −6.7 to −12.0 pp (e.g., −11.99±1.27 pp at ε=0.1 with weight momentum).\n  - Observed −13.32 pp at ε=0.2 is 4.7–10.5× larger than clean-trigger effects and slightly worse than the strongest poisoned cases reported at half the ε, consistent with a poisoned accumulative trigger under stronger ε.\n\nSecurity signals\n- use_advtrigger=True with ε=0.2 strongly suggests intentional adversarial/poisoning scenario.\n- Pickle warning present: torch.load without weights_only=True; supply-chain risk flagged by PyTorch.\n\nDetection assessment\n- Simple rule Δerror_post-trigger > 5 pp: triggered (13.32 pp > 5 pp), TPR=1/1 on this run; FPR not measurable from given data.\n- Collapse rule Acc < 50%: triggered by epoch 2.\n\nRisk rating: High. Active trigger-induced failure and ongoing catastrophic degradation.\n\nImmediate actions\n- Halt online training; revert to pre-attack checkpoint (86.4%).\n- Enforce safe loading: torch.load(..., weights_only=True) and allowlist safe globals.\n- Reduce ε to ≤16/255 (0.0627) or 8/255 (0.031) and re-evaluate; at ε=0.1 KB shows −6.7 to −12.0 pp under poison vs −13.32 pp observed here at 0.2.\n- Add monitoring gates: alert if per-epoch Δerror ≥10 pp, loss ratio ≥1.5, or post-trigger Δerror ≥5 pp.\n- Run clean-trigger control; replicate KB ablations (re-sampling Sval, weight momentum) to localize the source.",
+        "sources": [
+          {
+            "id": "paper3_chunk8",
+            "doc": " At(θt))⊤∇θL(Sval; At(θt)) =⇒max\nAt ∇θL(ST ; At(θt))⊤∇θL(Sval; At(θt)), (13)\n6\n\nTable 1: Classiﬁcation accuracy (%) of the simulated online learning models on CIFAR-10. The de-\nfault settings: ratio R = 100%, and the poisoned trigger P is ﬁxed during the process of accumulative\nphase. We perform ablation studies on different tricks used in the accumulative phase.\nMethod\nAcc. before trigger\nAcc. after trigger\n∆\nClean trigger\n83.38\n84.07\n+0.69\n+ accumulative phase\n80.90±0.50\n76.94±0.89\n−3.95±0.61\n+ re-sampling Sval\n80.69±0.34\n76.65±0.93\n−4.03±0.66\n+ weight momentum\n78.39±0.94\n70.17±1.50\n−8.23±0.88\nPoisoned trigger\n+ ϵ = 8/255\n83.38\n82.11\n−1.27\n+ accumulative phase\n81.37±0.12\n78.06±0.68\n−3.31±0.57\n+ re-sampling Sval\n80.45±0.25\n78.18±0.84\n−3.27±0.62\n+ weight momentum\n81.47±0.50\n77.11±0.38\n−4.36±0.44\n+ optimizing P\n81.31±0.33\n76.05±0.40\n−5.26±0.33\n+ weight momentum\n80.77±1.00\n74.05±1.20\n−6.72±0.70\n+ ϵ = 16/255\n83.38\n80.85\n−2.53\n+ accumulative phase\n81.43±0.17\n77.89±0.82\n−3.54±0.96\n+ re-sampling Sval\n81.61±0.11\n77.87±0.79\n−3.74±0.69\n+ weight momentum\n80.57±0.12\n74.82±1.00\n−5.75±1.08\n+ optimizing P\n80.02±0.92\n71.10±1.68\n−8.92±0.77\n+ weight momentum\n80.17±1.24\n69.08±1.72\n−11.09±0.57\n+ ϵ = 0.1\n83.38\n80.52\n−2.86\n+ accumulative phase\n81.20±0.14\n74.29±0.21\n−6.91±0.17\n+ re-sampling Sval\n81.43±0.41\n74.73±0.82\n−6.70±0.98\n+ weight momentum\n79.46±0.56\n69.90±1.01\n−9.56±0.77\n+ optimizing P\n81.16±0.57\n70.13±0.88\n−11.04±0.56\n+ weight momentum\n81.34±0.15\n69.35±1.42\n−11.99±1.27\n0.02\n0.04\n0.06\n0.08\n0.1\n0.64\n0.65\n0.66\n0.67\n0.68\n0.69\nPoisoned trigger\nAccmulative phase (OURS)\n0.02\n0.04\n0.06\n0.08\n0.1\n-7.6\n-7.4\n-7.2\n-7\n-6.8\n-6.6\nPoisoned trigger\nAccmulative phase (OURS)\n0.02\n0.04\n0.06\n0.08\n0.1\n-660\n-640\n-620\n-600\n-580\n-560\n-540\n-520\nPoisoned trigger\nAccmulative phase (OURS)\n0.02\n0.04\n0.06\n0.08\n0.1\n-1000\n-900\n-800\n-700\n-600\nPoisoned trigger\nAccmulative phase (OURS)\nKD\nLID\nGDA\nGMM\nPerturbation",
+            "meta": {
+              "year": 2021,
+              "title": "Accumulative Poisoning Attacks on Real-time Data (dup)",
+              "authors": "논문2 저자1; 논문2 저자2"
+            }
+          }
+        ],
+        "error": null
+      },
+      "summary": {
+        "text": "Determination: Accumulative Attack (PGD-based online accumulative poisoning with adversarial trigger). Rationale: The run is executed via the accumulative attack training script with explicit adversarial configuration (attack_method=pgd, Linf ε=0.2, num_steps=2, use_advtrigger=True). Starting from a clean checkpoint (Acc@1 86.4%, error 13.6%, loss 0.444), online training rapidly collapses performance across four epochs: error 20.71% -> 61.17% (+40.46 pp), accuracy 79.29% -> 38.83% (−40.46 pp), and loss 1.097 -> 3.788. The configured failure threshold (0.6) is breached at epoch 3. Subsequent adversarial trigger evaluation drives a further targeted failure: error 61.17% -> 74.49% (+13.32 pp), accuracy 38.83% -> 25.51% (−13.32 pp), and loss roughly doubles (3.788 -> 8.345). These are definitive signatures of an Accumulative Attack with an adversarial trigger, not Brainwash or Label Flipping. Confidence: high. Immediate actions: halt online training; revert to the pre-attack checkpoint; disable use_advtrigger and any poisoning routines; enforce safe loading with torch.load(..., weights_only=True); audit the online data/optimizer pipeline; and deploy monitoring gates for per-epoch error/loss spikes and post-trigger deltas.",
+        "error": null
+      },
+      "ragas_scores": {
+        "faithfulness": 0.89,
+        "answer_relevance": 0.6972400079803603,
+        "context_relevance": 0.99
+      },
+      "elapsed_sec": 244.78
+    }
+  ],
+  "hints": {
+    "USE_RAG": true,
+    "LOG_TAIL": 20000
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "session_id": "monitor_accumulative_20251110_125227",
+  "applied_to_next_step": "Accumulative: Final Evaluation",
+  "base_query_before": "accumulative attack online training PGD Linf epsilon trigger collapse evaluation ASR collapse detection",
+  "merged_query_after": "accumulative attack online training PGD Linf epsilon trigger collapse evaluation ASR collapse detection Acc@1 Brainwash Accumulative Attack PGD Linf adversarial trigger online training epsilon 0.2 threshold 0.6 momentum 0.9 Acc@1 25.5% continual learning poisoning logs accumulative attack pgd linf adversarial trigger online training epsilon 0.2 threshold 0.6 momentum 0.9 acc@1 drop",
+  "from_step": "Accumulative: Online Train",
+  "topk_used": {
+    "terms": [
+      "Acc@1",
+      "Brainwash"
+    ],
+    "phrases": [
+      "Accumulative Attack",
+      "PGD Linf",
+      "adversarial trigger",
+      "online training",
+      "epsilon 0.2",
+      "threshold 0.6",
+      "momentum 0.9",
+      "Acc@1 25.5%"
+    ],
+    "query_hint": "continual learning poisoning logs accumulative attack pgd linf adversarial trigger online training epsilon 0.2 threshold 0.6 momentum 0.9 acc@1 drop"
+  },
+  "timestamp": "2025-11-10 12:59:25"
+}

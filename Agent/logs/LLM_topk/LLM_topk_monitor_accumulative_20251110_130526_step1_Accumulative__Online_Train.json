@@ -1,0 +1,17 @@
+{
+  "terms": [
+    "PGD",
+    "linf",
+    "AccumulativeAttack",
+    "craft_accu"
+  ],
+  "phrases": [
+    "accumulative poisoning",
+    "adversarial trigger",
+    "after-trigger metrics",
+    "Acc@1 0.864",
+    "Test error 0.1360",
+    "epsilon 0.2"
+  ],
+  "query_hint": "Combine accumulative poisoning and adversarial trigger with PGD (linf) and code terms craft_accu/AccumulativeAttack; include numeric filters like Acc@1 0.864, test error 0.1360, epsilon 0.2."
+}
