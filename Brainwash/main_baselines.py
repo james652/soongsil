@@ -66,7 +66,7 @@ def main(args):
         im_sz = 84
         emb_fact = 1    
         home = os.path.expanduser('~')
-        mini_root = os.path.join(home, 'data', 'miniImagenet' ) 
+        mini_root = '/home/jun/work/data/miniImagenet'
         data, taskcla, inputsize, task_order = generate_split_mini_imagenet_tasks(mini_root, task_num = args.tasknum, 
                                                                     rnd_order=False, order=order) 
     elif args.experiment == 'split_tiny_imagenet':
@@ -193,9 +193,13 @@ def main(args):
 
    
     if args.experiment == 'split_cifar10':
-        save_dir = '/home/jun/work/soongsil/Brainwash/data_cifar10'
+        save_dir = '/home/jun/work/soongsil/Brainwash/checkpoint/data_cifar10'
     elif args.experiment == 'split_cifar100':
-        save_dir = '/home/jun/work/soongsil/Brainwash/data_cifar100'
+        save_dir = '/home/jun/work/soongsil/Brainwash/checkpoint/data_cifar100'
+    elif args.experiment == 'split_mini_imagenet':               
+        save_dir = '/home/jun/work/soongsil/Brainwash/checkpoint/data_miniImagenet'
+    elif args.experiment == 'split_tiny_imagenet':
+        save_dir = '/home/jun/work/soongsil/Brainwash/checkpoint/data_tinyImagenet'    
     else:
         save_dir = '/home/jun/work/soongsil/Brainwash/data_other'
     os.makedirs(save_dir, exist_ok=True)

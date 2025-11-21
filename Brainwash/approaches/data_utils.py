@@ -32,83 +32,106 @@ class CustomTenDataset(Dataset):
 
 
 def generate_split_mini_imagenet_tasks(root_add, task_num, seed=0, rnd_order=True,
-                                         order=None):
-    
-    np.random.seed(seed)    
-    torch.manual_seed(seed) 
+                                       order=None):
+    """
+    mini-ImageNet 100클래스를 task_num개 task로 나누는 함수.
+    - root_add: train_x.npy, train_y.npy, test_x.npy, test_y.npy가 있는 디렉토리
+    - train_x/test_x shape:
+        * (N, 3, 84, 84)  (NCHW) 이거나
+        * (N, 84, 84, 3)  (NHWC) 여도 동작하게 처리
+    """
+    np.random.seed(seed)
+    torch.manual_seed(seed)
 
-    
-
-    train_data = torch.from_numpy(np.load(os.path.join(root_add, 'train_x.npy')))    
-    tst_data = torch.from_numpy(np.load(os.path.join(root_add, 'test_x.npy')))
+    # 1) Numpy 로드
+    train_np = np.load(os.path.join(root_add, 'train_x.npy'))
+    test_np  = np.load(os.path.join(root_add, 'test_x.npy'))
     train_lbls = torch.from_numpy(np.load(os.path.join(root_add, 'train_y.npy')))
-    tst_lbls = torch.from_numpy(np.load(os.path.join(root_add, 'test_y.npy'))) 
+    tst_lbls   = torch.from_numpy(np.load(os.path.join(root_add, 'test_y.npy')))
 
-    train_data = train_data.permute(0, 3, 1, 2).float() / 255.  
-    tst_data = tst_data.permute(0, 3, 1, 2).float() / 255.
-    
+    # 2) 텐서로 변환
+    train = torch.from_numpy(train_np).float()
+    test  = torch.from_numpy(test_np).float()
 
+    # 3) shape 확인해서 NCHW / NHWC 둘 다 지원
+    #   - 현재 네 데이터는 (N, 3, 84, 84)이므로 여기서 걸림
+    if train.ndim != 4:
+        raise ValueError(f"Expected 4D tensor for mini-ImageNet, got shape {train.shape}")
+
+    if train.shape[1] == 3:
+        # 이미 (N, C, H, W)
+        train_data = train
+        tst_data   = test
+    elif train.shape[-1] == 3:
+        # (N, H, W, C) -> (N, C, H, W)
+        train_data = train.permute(0, 3, 1, 2)
+        tst_data   = test.permute(0, 3, 1, 2)
+    else:
+        raise ValueError(
+            f"Unexpected mini-ImageNet shape {train.shape}. "
+            "Expected (N,3,H,W) or (N,H,W,3)."
+        )
+
+    # 4) 값 범위가 0~255이면 0~1로 정규화
+    if train_data.max() > 1.0:
+        train_data = train_data / 255.0
+        tst_data   = tst_data / 255.0
+
+    # 5) 클래스 순서 섞기 or 고정
     if rnd_order:
         rnd_cls_order = np.random.permutation(100)
     else:
         rnd_cls_order = order
-        
+
     tasks_cls = []
-
-    cls_per_task = 100 // task_num  
+    cls_per_task = 100 // task_num   # 예: task_num=9면 11, 마지막 1클래스는 남겨둠
     for i in range(task_num):
-        tasks_cls.append(rnd_cls_order[i*cls_per_task:(i+1)*cls_per_task])
-    
+        tasks_cls.append(rnd_cls_order[i * cls_per_task:(i + 1) * cls_per_task])
 
-    ds_dict = {}
-    ds_dict['train'] = []
-    ds_dict['test'] = []
-
+    # 6) task별로 데이터 쪼개기
     data = {}
-    for n in range(task_num):   
-        data[n]={}
-        data[n]['name']='cifar100'
-        data[n]['ncla']= 100 // task_num    
-        data[n]['train']={'x': [],'y': []}
-        data[n]['test']={'x': [],'y': []}
-    
+    for n in range(task_num):
+        data[n] = {}
+        data[n]['name'] = 'mini_imagenet'
+        data[n]['ncla'] = 100 // task_num
+        data[n]['train'] = {'x': [], 'y': []}
+        data[n]['test']  = {'x': [], 'y': []}
+
     for i in range(task_num):
         train_task_idx_ = []
         tst_task_idx_ = []
-        train_task_idx = torch.zeros(len(train_lbls)).bool()  
-        tst_task_idx = torch.zeros(len(tst_lbls)).bool()
+        train_task_idx = torch.zeros(len(train_lbls)).bool()
+        tst_task_idx   = torch.zeros(len(tst_lbls)).bool()
+
         for j in range(cls_per_task):
-            train_task_idx_.append(train_lbls == tasks_cls[i][j])  
-            tst_task_idx_.append(tst_lbls == tasks_cls[i][j])  
+            train_task_idx_.append(train_lbls == tasks_cls[i][j])
+            tst_task_idx_.append(tst_lbls == tasks_cls[i][j])
+
+            # 원래 클래스 → task-local 라벨(0~cls_per_task-1)로 재매핑
             train_lbls[train_task_idx_[-1]] = j
-            tst_lbls[tst_task_idx_[-1]] = j
-            train_task_idx = torch.logical_or(train_task_idx, train_task_idx_[-1])  
-            tst_task_idx = torch.logical_or(tst_task_idx, tst_task_idx_[-1])
+            tst_lbls[tst_task_idx_[-1]]     = j
 
-        x_train_task = train_data[train_task_idx] 
+            train_task_idx = torch.logical_or(train_task_idx, train_task_idx_[-1])
+            tst_task_idx   = torch.logical_or(tst_task_idx,   tst_task_idx_[-1])
+
+        x_train_task = train_data[train_task_idx]
         y_train_task = train_lbls[train_task_idx]
+        x_tst_task   = tst_data[tst_task_idx]
+        y_tst_task   = tst_lbls[tst_task_idx]
 
+        data[i]['train']['x'], data[i]['train']['y'] = x_train_task, y_train_task
+        data[i]['test']['x'],  data[i]['test']['y']  = x_tst_task,  y_tst_task
 
-        x_tst_task = tst_data[tst_task_idx] 
-        y_tst_task = tst_lbls[tst_task_idx]
-    
-        # print(x_train_task.shape, x_tst_task.shape, y_train_task.shape, y_tst_task.shape)
-
-        data[i]['train']['x'], data[i]['train']['y'] = x_train_task, y_train_task   
-        data[i]['test']['x'], data[i]['test']['y'] = x_tst_task, y_tst_task 
-
-
-    n=0
-    taskcla=[]
+    # 7) task 정보 / 전체 클래스 수 / 이미지 크기 정리
+    taskcla = []
     for t in range(task_num):
         taskcla.append((t, data[t]['ncla']))
-        n+=data[t]['ncla']
 
     data['ncla'] = 100
-
-    size=[3,32,32]
+    size = [3, 84, 84]
 
     return data, taskcla, size, tasks_cls
+
 
 
 
